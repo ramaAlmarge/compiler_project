@@ -4,8 +4,6 @@ import AST.Python.*;
 import AST.Python.Number;
 import antlrPython.*;
 
-import java.util.List;
-
 public class PythonVisitor extends PythonParserBaseVisitor {
     @Override
     public Object visitRoot(PythonParser.RootContext ctx) {
@@ -89,24 +87,43 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     }
 
     @Override
-    public Object visitExpr_stmt(PythonParser.Expr_stmtContext ctx) {
-        return super.visitExpr_stmt(ctx);
+    public Small_stmt visitExpr_stmt(PythonParser.Expr_stmtContext ctx) {
+        Expr_stmt node = new Expr_stmt();
+        node.setTest((Test) visit(ctx.test()));
+        if (ctx.assign_part() != null) {
+            node.setAssignPart((Assign_part) visit(ctx.assign_part()));
+        }
+
+        return node;
     }
 
     @Override
-    public Object visitReturn_stmt(PythonParser.Return_stmtContext ctx) {
-        return super.visitReturn_stmt(ctx);
+    public Small_stmt visitReturn_stmt(PythonParser.Return_stmtContext ctx) {
+        Return_stmt node = new Return_stmt();
+        for (PythonParser.TestContext tctx : ctx.test()) {
+            node.addValue((Test) visit(tctx));
+        }
+
+        return node;
     }
 
     @Override
-    public Object visitImport_stmt(PythonParser.Import_stmtContext ctx) {
-        return super.visitImport_stmt(ctx);
+    public Small_stmt visitImport_stmt(PythonParser.Import_stmtContext ctx) {
+        Import_stmt node = new Import_stmt();
+        node.setName((Name) visit(ctx.name()));
+        return node;
     }
 
     @Override
-    public Object visitFrom_stmt(PythonParser.From_stmtContext ctx) {
-        return super.visitFrom_stmt(ctx);
+    public Small_stmt visitFrom_stmt(PythonParser.From_stmtContext ctx) {
+        From_stmt node = new From_stmt();
+        node.setModule((Name) visit(ctx.name(0)));
+        for (int i = 1; i < ctx.name().size(); i++) {
+            node.addImported((Name) visit(ctx.name(i)));
+        }
+        return node;
     }
+
 
     @Override
     public Assign_part visitAnnotatedAssign(PythonParser.AnnotatedAssignContext ctx) {
