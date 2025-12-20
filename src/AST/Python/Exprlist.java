@@ -3,21 +3,21 @@ package AST.Python;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exprlist {
-    List<Expr> expr = new ArrayList<>();
+public class Exprlist extends Root{
+    List<Expr> exprs = new ArrayList<>();
 
-    public List<Expr> getExpr() {
-        return expr;
+    public List<Expr> getExprs() {
+        return exprs;
     }
 
-    public void setExpr(List<Expr> expr) {
-        this.expr = expr;
+    public void addExpr(Expr e) {
+        this.exprs.add(e);
     }
 
     @Override
     public String toString() {
         return "Exprlist{" +
-                "expr=" + expr +
+                "exprs=" + exprs +
                 '}';
     }
 }

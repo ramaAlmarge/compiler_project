@@ -77,13 +77,19 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     }
 
     @Override
-    public Object visitExcept_clause(PythonParser.Except_clauseContext ctx) {
-        return super.visitExcept_clause(ctx);
+    public Root visitExcept_clause(PythonParser.Except_clauseContext ctx) {
+        Except_clause node = new Except_clause();
+        node.setSuite((Suite) visit(ctx.suite()));
+        return node;
     }
 
     @Override
-    public Object visitExprlist(PythonParser.ExprlistContext ctx) {
-        return super.visitExprlist(ctx);
+    public Root visitExprlist(PythonParser.ExprlistContext ctx) {
+        Exprlist node = new Exprlist();
+        for (PythonParser.ExprContext ectx : ctx.expr()) {
+            node.addExpr((Expr) visit(ectx));
+        }
+        return node;
     }
 
     @Override

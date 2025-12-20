@@ -1,30 +1,20 @@
 package AST.Python;
 
-public class Expr_stmt {
-    Testlist_star_expr testlist_star_expr;
-    Assign_part assign_part;
+public class Expr_stmt extends Small_stmt{
+    Test test;
+    Assign_part assignPart;
 
-    public Assign_part getAssign_part() {
-        return assign_part;
-    }
+    public Test getTest() { return test; }
+    public void setTest(Test test) { this.test = test; }
 
-    public void setAssign_part(Assign_part assign_part) {
-        this.assign_part = assign_part;
-    }
-
-    public Testlist_star_expr getTestlist_star_expr() {
-        return testlist_star_expr;
-    }
-
-    public void setTestlist_star_expr(Testlist_star_expr testlist_star_expr) {
-        this.testlist_star_expr = testlist_star_expr;
-    }
+    public Assign_part getAssignPart() { return assignPart; }
+    public void setAssignPart(Assign_part assignPart) { this.assignPart = assignPart; }
 
     @Override
     public String toString() {
         return "Expr_stmt{" +
-                "testlist_star_expr=" + testlist_star_expr +
-                ", assign_part=" + assign_part +
+                "test=" + test +
+                ", assignPart=" + assignPart +
                 '}';
     }
 }
