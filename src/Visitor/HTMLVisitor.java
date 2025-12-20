@@ -1,4 +1,5 @@
 package Visitor;
+import AST.HTML.*;
 import antlrHTML.HTMLParser;
 import antlrHTML.*;
 public class HTMLVisitor  extends HTMLParserBaseVisitor{
@@ -223,42 +224,184 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     }
 
     @Override
-    public Object visitAtRule(HTMLParser.AtRuleContext ctx) {
-        return super.visitAtRule(ctx);
+    public Root visitAtRule(HTMLParser.AtRuleContext ctx) {
+        AtRule node = new AtRule();
+
     }
 
     @Override
-    public Object visitAtRuleWithBlock(HTMLParser.AtRuleWithBlockContext ctx) {
-        return super.visitAtRuleWithBlock(ctx);
+    public AtRuleBody visitAtRuleWithBlock(HTMLParser.AtRuleWithBlockContext ctx) {
+
+        AtRuleWithBlock body = new AtRuleWithBlock();
+
+        for (var child : ctx.children) {
+            if (child instanceof HTMLParser.RuleContext) {
+                Rule rule = (Rule) visitRule((HTMLParser.RuleContext) child);
+                body.addRule(rule);
+            } else if (child instanceof HTMLParser.DeclarationContext) {
+                Declaration declaration =
+                        (Declaration) visitDeclaration((HTMLParser.DeclarationContext) child);
+                body.addDeclaration(declaration);
+            } else if (child instanceof HTMLParser.AtRuleContext) {
+                AtRule atRule =
+                        (AtRule) visitAtRule((HTMLParser.AtRuleContext) child);
+                body.addAtRule(atRule);
+            }
+        }
+
+        return body;
     }
 
-    @Override
-    public Object visitAtRuleWithoutBlock(HTMLParser.AtRuleWithoutBlockContext ctx) {
-        return super.visitAtRuleWithoutBlock(ctx);
-    }
 
     @Override
-    public Object visitJinja2(HTMLParser.Jinja2Context ctx) {
-        return super.visitJinja2(ctx);
+    public AtRuleBody visitAtRuleWithoutBlock(HTMLParser.AtRuleWithoutBlockContext ctx) {
+
+        return new AtRuleWithoutBlock();
     }
 
-    @Override
-    public Object visitStatement(HTMLParser.StatementContext ctx) {
-        return super.visitStatement(ctx);
-    }
 
     @Override
-    public Object visitStmt(HTMLParser.StmtContext ctx) {
-        return super.visitStmt(ctx);
+    public Root visitJinja2(HTMLParser.Jinja2Context ctx) {
+        Jinja2 node = new Jinja2();
+        node.setStatement((Statement)visitStatement(ctx.statement()));
+        return node;
     }
 
-    @Override
-    public Object visitExpr(HTMLParser.ExprContext ctx) {
-        return super.visitExpr(ctx);
-    }
 
     @Override
-    public Object visitExpr_content(HTMLParser.Expr_contentContext ctx) {
-        return super.visitExpr_content(ctx);
+    public Root visitStatement(HTMLParser.StatementContext ctx) {
+        Statement node = new Statement();
+        if (ctx.stmt() != null) {
+            Stmt stmt = (Stmt) visitStmt(ctx.stmt());
+            return node;
+        }
+
+        if (ctx.expr() != null) {
+            Expr expr = (Expr) visitExpr(ctx.expr());
+            return node;
+        }
+
+        return null;
+    }
+
+
+    @Override
+    public Root visitStmt(HTMLParser.StmtContext ctx) {
+
+        Stmt node = new Stmt();
+
+        for (var idToken : ctx.ID()) {
+            node.addId(idToken.getText());
+        }
+
+        return node;
+    }
+
+
+    @Override
+    public Root visitExpr(HTMLParser.ExprContext ctx) {
+
+        Expr node = new Expr();
+
+        for (HTMLParser.Expr_contentContext contentCtx : ctx.expr_content()) {
+            Expr_content content =
+                    (Expr_content) visitExpr_content(contentCtx);
+            node.addExpr_content(content);
+        }
+
+        return node;
+    }
+
+
+
+
+    @Override
+    public Root visitExpr_content(HTMLParser.Expr_contentContext ctx) {
+
+        if (ctx.ID() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.ID,
+                    ctx.ID().getText()
+            );
+        }
+
+        if (ctx.NUMBER() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.NUMBER,
+                    ctx.NUMBER().getText()
+            );
+        }
+
+        if (ctx.DOUBLE_QUOTE_STRING() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.STRING,
+                    ctx.DOUBLE_QUOTE_STRING().getText()
+            );
+        }
+
+        if (ctx.OR() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.OR,
+                    ctx.OR().getText()
+            );
+        }
+
+        if (ctx.LPAREN() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.LPAREN,
+                    ctx.LPAREN().getText()
+            );
+        }
+
+        if (ctx.RPAREN() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.RPAREN,
+                    ctx.RPAREN().getText()
+            );
+        }
+
+        if (ctx.COLON() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.COLON,
+                    ctx.COLON().getText()
+            );
+        }
+
+        if (ctx.LBRACK() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.LBRACK,
+                    ctx.LBRACK().getText()
+            );
+        }
+
+        if (ctx.RBRACK() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.RBRACK,
+                    ctx.RBRACK().getText()
+            );
+        }
+
+        if (ctx.PIPE() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.PIPE,
+                    ctx.PIPE().getText()
+            );
+        }
+
+        if (ctx.TILDE() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.TILDE,
+                    ctx.TILDE().getText()
+            );
+        }
+
+        if (ctx.TAG_CLOSE() != null) {
+            return new Expr_content(
+                    Expr_content.ExprType.TAG_CLOSE,
+                    ctx.TAG_CLOSE().getText()
+            );
+        }
+
+        return null;
     }
 }
