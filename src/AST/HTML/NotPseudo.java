@@ -1,30 +1,19 @@
 package AST.HTML;
 
-public class NotPseudo implements  Pseudo{
- String not;
-    PseudoExpr pseudoExpr;
+public class NotPseudo extends Pseudo {
 
-    public String getNot() {
-        return not;
-    }
+    private PseudoExpr pseudoExpr;
 
-    public void setNot(String not) {
-        this.not = not;
+    public NotPseudo(PseudoExpr pseudoExpr) {
+        this.pseudoExpr = pseudoExpr;
     }
 
     public PseudoExpr getPseudoExpr() {
         return pseudoExpr;
     }
 
-    public void setPseudoExpr(PseudoExpr pseudoExpr) {
-        this.pseudoExpr = pseudoExpr;
-    }
-
     @Override
     public String toString() {
-        return "NotPseudo{" +
-                "not='" + not + '\'' +
-                ", pseudoExpr=" + pseudoExpr +
-                '}';
+        return ":not(" + (pseudoExpr != null ? pseudoExpr : "") + ")";
     }
 }

@@ -1,6 +1,9 @@
 package Visitor;
 import AST.HTML.*;
 import antlrHTML.*;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
 public class HTMLVisitor  extends HTMLParserBaseVisitor{
     @Override
     public Object visitRoot(HTMLParser.RootContext ctx) {
@@ -73,38 +76,106 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     }
 
     @Override
-    public Object visitPseudoClass(HTMLParser.PseudoClassContext ctx) {
-        return super.visitPseudoClass(ctx);
+    public PseudoClass visitPseudoClass(HTMLParser.PseudoClassContext ctx) {
+
+        String id = ctx.ID().getText();
+
+        PseudoExpr expr = null;
+        if (ctx.pseudoExpr() != null) {
+            expr = (PseudoExpr) visit(ctx.pseudoExpr());
+        }
+
+        // إنشاء node لكل مرة
+        return new PseudoClass(id, expr);
+    }
+
+
+    @Override
+    public PseudoElement visitPseudoElement(HTMLParser.PseudoElementContext ctx) {
+
+        String id = ctx.ID().getText();
+
+        PseudoExpr expr = null;
+        if (ctx.pseudoExpr() != null) {
+            expr = (PseudoExpr) visit(ctx.pseudoExpr());
+        }
+
+        // إنشاء node لكل مرة
+        return new PseudoElement(id, expr);
+    }
+
+
+    @Override
+    public NotPseudo visitNotPseudo(HTMLParser.NotPseudoContext ctx) {
+
+        PseudoExpr expr = null;
+
+        if (ctx.pseudoExpr() != null) {
+            expr = (PseudoExpr) visit(ctx.pseudoExpr());
+        }
+
+        return new NotPseudo(expr);
+    }
+
+
+    @Override
+    public PseudoExpr visitPseudoExpr(HTMLParser.PseudoExprContext ctx) {
+
+        PseudoExpr expr = new PseudoExpr();
+
+
+        for (ParseTree child : ctx.children) {
+
+            if (child instanceof TerminalNode) {
+                TerminalNode t = (TerminalNode) child;
+                String text = t.getText();
+                int type = t.getSymbol().getType();
+
+                switch (type) {
+                    case HTMLParser.NUMBER:
+                        expr.addPart(new NumberPseudoExpr(text));
+                        break;
+                    case HTMLParser.ID:
+                        expr.addPart(new IdentPseudoExpr(text));
+                        break;
+                    case HTMLParser.PLUS:
+                    case HTMLParser.MINUS:
+                    case HTMLParser.STAR:
+                    case HTMLParser.SLASH:
+                    case HTMLParser.COLON:
+                        expr.addPart(new OperatorPseudoExpr(text));
+                        break;
+                    case HTMLParser.NOT:
+                        expr.addPart(new NotPseudoExpr());
+                        break;
+                    default:
+
+                        break;
+                }
+
+            } else if (child instanceof HTMLParser.PseudoContext) {
+                Pseudo pseudo = (Pseudo) visit(child);
+                expr.addPart(new NestedPseudoExpr(pseudo));
+            }
+        }
+
+        return expr;
+    }
+
+
+    @Override
+    public Combinator visitChildCombinator(HTMLParser.ChildCombinatorContext ctx) {
+        return new ChildCombinator();
     }
 
     @Override
-    public Object visitPseudoElement(HTMLParser.PseudoElementContext ctx) {
-        return super.visitPseudoElement(ctx);
+    public Combinator visitAdjacentSiblingCombinator(HTMLParser.AdjacentSiblingCombinatorContext ctx) {
+        return new AdjacentSiblingCombinator();
     }
 
     @Override
-    public Object visitNotPseudo(HTMLParser.NotPseudoContext ctx) {
-        return super.visitNotPseudo(ctx);
-    }
-
-    @Override
-    public Object visitPseudoExpr(HTMLParser.PseudoExprContext ctx) {
-        return super.visitPseudoExpr(ctx);
-    }
-
-    @Override
-    public Object visitChildCombinator(HTMLParser.ChildCombinatorContext ctx) {
-        return super.visitChildCombinator(ctx);
-    }
-
-    @Override
-    public Object visitAdjacentSiblingCombinator(HTMLParser.AdjacentSiblingCombinatorContext ctx) {
-        return super.visitAdjacentSiblingCombinator(ctx);
-    }
-
-    @Override
-    public Object visitGeneralSiblingCombinator(HTMLParser.GeneralSiblingCombinatorContext ctx) {
-        return super.visitGeneralSiblingCombinator(ctx);
+    public Combinator visitGeneralSiblingCombinator(HTMLParser.GeneralSiblingCombinatorContext ctx) {
+        return new GeneralSiblingCombinator();
     }
 
     @Override

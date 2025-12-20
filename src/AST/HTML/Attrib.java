@@ -1,4 +1,4 @@
 package AST.HTML;
 
-public interface Attrib {
+public abstract class Attrib extends Root {
 }
