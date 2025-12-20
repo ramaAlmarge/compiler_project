@@ -1,30 +1,23 @@
 package AST.Python;
 
-public class Return_stmt {
-    String return_name;
-    Testlist testlist;
+import java.util.ArrayList;
+import java.util.List;
 
-    public String getReturn_name() {
-        return return_name;
+public class Return_stmt extends Small_stmt {
+    List<Test> values = new ArrayList<>(); // القيم المرجعة
+
+    public List<Test> getValues() {
+        return values;
     }
 
-    public void setReturn_name(String return_name) {
-        this.return_name = return_name;
-    }
-
-    public Testlist getTestlist() {
-        return testlist;
-    }
-
-    public void setTestlist(Testlist testlist) {
-        this.testlist = testlist;
+    public void addValue(Test t) {
+        this.values.add(t);
     }
 
     @Override
     public String toString() {
         return "Return_stmt{" +
-                "return_name='" + return_name + '\'' +
-                ", testlist=" + testlist +
+                "values=" + values +
                 '}';
     }
 }

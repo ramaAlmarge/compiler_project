@@ -26,7 +26,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/PythonParser.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Mutaz13\Documents\CompilerProject\src\antlrPython" />
+          <option name="outputDir" value="C:\Users\Mutaz13\Documents\compilerProjectGithub\compiler_project\src\antlrPython" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />
