@@ -1,109 +1,27 @@
 lexer grammar PythonLexer;
+@header{
+package antlrPython;
+import java.util.*;
 
+}
 tokens { INDENT, DEDENT }
-
-@lexer::members {
-    private java.util.Stack<Integer> indents = new java.util.Stack<>();
-    private int opened = 0;
-
-    private Token lastToken = null;
-
-    @Override
-    public Token nextToken() {
-        Token next = super.nextToken();
-        if (next.getChannel() == Token.DEFAULT_CHANNEL)
-            lastToken = next;
-        return next;
-    }
-
-    void handleNewLine() {
-        String text = getText().replaceAll("[^\n]+", "");
-        int newLines = text.length();
-
-        if (opened > 0) {
-            skip();
-            return;
-        }
-
-        int spaces = 0;
-        int pos = 1;
-        while (true) {
-            int la = _input.LA(pos);
-            if (la == ' ')
-                spaces++;
-            else if (la == '\t')
-                spaces += 8;
-            else
-                break;
-            pos++;
-        }
-
-        if (_input.LA(pos) == '\n' || _input.LA(pos) == '\r' || _input.LA(pos) == '#') {
-            skip();
-            return;
-        }
-
-        emit(commonToken(NEWLINE, getText()));
-
-        int prevIndent = indents.isEmpty() ? 0 : indents.peek();
-        if (spaces == prevIndent)
-            return;
-
-        if (spaces > prevIndent) {
-            indents.push(spaces);
-            emit(commonToken(INDENT, ""));
-        } else {
-            while (!indents.isEmpty() && indents.peek() > spaces) {
-                indents.pop();
-                emit(commonToken(DEDENT, ""));
-            }
-        }
-    }
-
-    @Override
-    public void emit(Token t) {
-        super.emit(t);
-        lastToken = t;
-    }
-
-    private CommonToken commonToken(int type, String text) {
-        int stop = getCharIndex() - 1;
-        int start = text.isEmpty() ? stop : stop - text.length() + 1;
-        return new CommonToken(type, text) {{
-            setStartIndex(start);
-            setStopIndex(stop);
-        }};
-    }
-
-    void inc() { opened++; }
-    void dec() { opened--; }
+@members {
+    java.util.Stack<Integer> indents = new java.util.Stack<>();
+    int opened = 0;
 }
 
-// ---------------- SYMBOLS -------------------
-LBRACE     : '{' ;
-RBRACE     : '}' ;
-LPAREN     : '(' {inc();} ;
-RPAREN     : ')' {dec();} ;
-LBRACK     : '[' {inc();} ;
-RBRACK     : ']' {dec();} ;
-SEMI       : ';' ;
-COLON      : ':' ;
-COMMA      : ',' ;
-DOT        : '.' ;
-EQ         : '=' ;
-PLUS       : '+' ;
-MINUS      : '-' ;
-STAR       : '*' ;
-SLASH      : '/' ;
-LT         : '<' ;
-GT         : '>' ;
-PIPE       : '|' ;
-UNDERSCORE : '_' ;
+// ---------------- INDENTATION HANDLING ------------------
+NEWLINE : ('\r'? '\n')  SPACES?;
+WS : [ \t]+ -> channel(HIDDEN) ;
+SPACES: [ \t]+ ;
+LINE_JOIN : '\\' [ \t]* ('\r'? '\n') -> skip ;
 
 // ---------------- KEYWORDS ------------------
 DEF      : 'def';
 RETURN   : 'return';
 RAISE    : 'raise';
+
+
 FROM     : 'from';
 IMPORT   : 'import';
 NONLOCAL : 'nonlocal';
@@ -153,7 +71,7 @@ NOT_OP             : '~';
 EQUALS             : '==';
 GT_EQ              : '>=';
 LT_EQ              : '<=';
-NOT_EQ_1           : '<>';
+
 NOT_EQ_2           : '!=';
 AT                 : '@';
 ARROW              : '->';
@@ -171,6 +89,27 @@ RIGHT_SHIFT_ASSIGN : '>>=' ;
 POWER_ASSIGN       : '**=' ;
 IDIV_ASSIGN        : '//=' ;
 
+// ---------------- SYMBOLS -------------------
+LBRACE     : '{' {opened++;};
+RBRACE     : '}' {opened--;};
+LPAREN     : '(' {opened++;};
+RPAREN     : ')' {opened--;};
+LBRACK     : '[' ;
+RBRACK     : ']' ;
+SEMI       : ';' ;
+COLON      : ':' ;
+COMMA      : ',' ;
+DOT        : '.' ;
+EQ         : '=' ;
+PLUS       : '+' ;
+MINUS      : '-' ;
+STAR       : '*' ;
+SLASH      : '/' ;
+LT         : '<' ;
+GT         : '>' ;
+PIPE       : '|' ;
+UNDERSCORE : '_' ;
+
 // ---------------- STRINGS & NUMBERS ------------------
 STRING:
     ([uU] | [fF] [rR]? | [rR] [fF]?)? (SHORT_STRING | LONG_STRING)
@@ -184,12 +123,6 @@ BIN_INTEGER     : '0' [bB] [01]+;
 
 IMAG_NUMBER  : (EXPONENT_OR_POINT_FLOAT | [0-9]+) [jJ];
 FLOAT_NUMBER : EXPONENT_OR_POINT_FLOAT;
-
-// ---------------- INDENTATION HANDLING ------------------
-NEWLINE   : ('\r'? '\n') {handleNewLine();} -> skip;
-WS        : [ \t]+ -> skip;
-
-LINE_JOIN : '\\' [ \t]* ('\r'? '\n') -> skip;
 
 // ---------------- COMMENTS -------------------
 COMMENT   : '#' ~[\r\n]* -> skip;

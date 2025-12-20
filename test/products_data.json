@@ -3,21 +3,14 @@
     "id": 1,
     "name": "كرسي مريح",
     "price": 79.99,
-    "image": "https://via.placeholder.com/600x400?text=Chair",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Set_of_fourteen_side_chairs_MET_DP110780.jpg/500px-Set_of_fourteen_side_chairs_MET_DP110780.jpg",
     "description": "كرسي مريح مناسِب للمكتب."
   },
   {
     "id": 2,
     "name": "طاولة خشب",
     "price": 149.0,
-    "image": "https://via.placeholder.com/600x400?text=Table",
+    "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcREqqprzLosTn5-bkBAYDZMxka4rx4JcaR8u_iuJDpQylO5wQ17lrXlzlpV8jDHKLkJnW4xYZjxGsoMHvHQARpmH11FkWAKwItijs9tdHUc",
     "description": "طاولة طعام من خشب البلوط."
-  },
-  {
-    "id": 3,
-    "name": "iphone 15",
-    "price": 2222.0,
-    "image": "https://assets.mmsrg.com/isr/166325/c1/-/ASSET_MMS_118115297?x=536&y=402&format=jpg&quality=80&sp=yes&strip=yes&trim&ex=536&ey=402&align=center&resizesource&unsharp=1.5x1+0.7+0.02&cox=0&coy=0&cdx=536&cdy=402",
-    "description": "222"
   }
 ]

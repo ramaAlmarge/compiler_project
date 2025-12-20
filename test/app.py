@@ -13,8 +13,8 @@ def load_products():
     if not os.path.exists(DATA_FILE):
         # عناصر مثال لإظهار الواجهة لأول مرة
         sample = [
-            {"id": 1, "name": "كرسي مريح", "price": 79.99, "image": "https://via.placeholder.com/600x400?text=Chair", "description": "كرسي مريح مناسِب للمكتب."},
-            {"id": 2, "name": "طاولة خشب", "price": 149.00, "image": "https://via.placeholder.com/600x400?text=Table", "description": "طاولة طعام من خشب البلوط."}
+            {"id": 1, "name": "كرسي مريح", "price": 79.99, "image": "https://via.placeholder.com/600x400?text=Chair", "description": "كرسي مريح مناسِب للمكتب." },
+            {"id": 2, "name": "طاولة خشب", "price": 149.00, "image": "https://via.placeholder.com/600x400?text=Table", "description": "طاولة طعام من خشب البلوط." }
         ]
         save_products(sample)
         return sample
@@ -61,17 +61,25 @@ def add_product():
 
         products = load_products()
         new = {
-            "id": next_id(products),
-            "name": name or f"منتج {next_id(products)}",
-            "price": round(price_val,2),
-            "image": image,
-            "description": description
+            "id": next_id(products),"name": name or f"منتج {next_id(products)}","price": round(price_val,2),"image": image,"description": description
         }
         products.append(new)
         save_products(products)
         return redirect(url_for("index"))
+        
     # GET -> عرض النموذج
     return render_template_string(TEMPLATE_STR, products=[], product=None, show_add=True, request=request)
+
+@APP.route("/delete/<int:pid>", methods=["POST"])
+def delete_product(pid):
+    products = load_products()
+    new_products = [p for p in products if int(p.get("id", 0)) != pid]
+
+    if len(new_products) == len(products):
+        return make_response("المنتج غير موجود", 404)
+
+    save_products(new_products)
+    return redirect(url_for("index"))
 
 @APP.route("/product/<int:pid>")
 def product_detail(pid):
