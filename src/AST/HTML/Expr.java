@@ -1,17 +1,19 @@
 package AST.HTML;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Expr {
-    List<Expr_content> expr_content = new ArrayList<>();
+public class Expr extends Root {
+
+    private List<Expr_content> expr_content = new ArrayList<>();
+
+    public void addExpr_content(Expr_content content) {
+        this.expr_content.add(content);
+    }
 
     public List<Expr_content> getExpr_content() {
         return expr_content;
-    }
-
-    public void setExpr_content(List<Expr_content> expr_content) {
-        this.expr_content = expr_content;
     }
 
     @Override

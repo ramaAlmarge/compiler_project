@@ -3,10 +3,8 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtRule {
+public class AtRule extends Root {
     List<ValuePart> valuePart = new ArrayList<>();
-    String at_rule;
-    List<String> url = new ArrayList<>();
     List<String> id = new ArrayList<>();
     List<Float> number = new ArrayList<>();
     AtRuleBody atRuleBody;
@@ -15,40 +13,24 @@ public class AtRule {
         return valuePart;
     }
 
-    public void setValuePart(List<ValuePart> valuePart) {
-        this.valuePart = valuePart;
-    }
-
-    public String getAt_rule() {
-        return at_rule;
-    }
-
-    public void setAt_rule(String at_rule) {
-        this.at_rule = at_rule;
-    }
-
-    public List<String> getUrl() {
-        return url;
-    }
-
-    public void setUrl(List<String> url) {
-        this.url = url;
+    public void setValuePart(ValuePart valuePart) {
+        this.valuePart.add(valuePart);
     }
 
     public List<String> getId() {
         return id;
     }
 
-    public void setId(List<String> id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id.add(id);
     }
 
     public List<Float> getNumber() {
         return number;
     }
 
-    public void setNumber(List<Float> number) {
-        this.number = number;
+    public void setNumber(Float number) {
+        this.number.add(number);
     }
 
     public AtRuleBody getAtRuleBody() {
@@ -61,13 +43,17 @@ public class AtRule {
 
     @Override
     public String toString() {
-        return "AtRule{" +
-                "valuePart=" + valuePart +
-                ", at_rule='" + at_rule + '\'' +
-                ", url=" + url +
-                ", id=" + id +
-                ", number=" + number +
-                ", atRuleBody=" + atRuleBody +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("@");
+        if (valuePart != null){
+            stringBuilder.append(valuePart);
+        }
+        else if (number != null || id != null){
+        stringBuilder.append("url");
+        stringBuilder.append(number);
+        stringBuilder.append(id);
+        }
+        stringBuilder.append(atRuleBody);
+        return stringBuilder.toString();
     }
 }

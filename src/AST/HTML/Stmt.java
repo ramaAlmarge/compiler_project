@@ -1,23 +1,23 @@
 package AST.HTML;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stmt {
-    List<String> id = new ArrayList<>();
+public class Stmt extends Root {
 
-    public List<String> getId() {
-        return id;
+    private List<String> ids = new ArrayList<>();
+
+    public void addId(String id) {
+        this.ids.add(id);
     }
 
-    public void setId(List<String> id) {
-        this.id = id;
+    public List<String> getIds() {
+        return ids;
     }
 
     @Override
     public String toString() {
         return "Stmt{" +
-                "id=" + id +
+                "ids=" + ids +
                 '}';
     }
 }

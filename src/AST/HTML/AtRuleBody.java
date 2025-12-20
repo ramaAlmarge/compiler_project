@@ -1,4 +1,4 @@
 package AST.HTML;
 
-public interface AtRuleBody {
+public abstract class AtRuleBody extends Root{
 }

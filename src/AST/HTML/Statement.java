@@ -1,8 +1,8 @@
 package AST.HTML;
 
-public class Statement {
-    Stmt stmt;
-    Expr expr;
+public class Statement extends Root {
+     Stmt stmt;
+     Expr expr;
 
     public Stmt getStmt() {
         return stmt;
@@ -22,14 +22,13 @@ public class Statement {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Statement{");
-        if (stmt != null) {
-            sb.append("stmt=").append(stmt);
+        StringBuilder stringBuilder = new StringBuilder();
+        if(stmt != null){
+           stringBuilder.append(stmt);
         }
-        if (expr != null) {
-            sb.append("expr=").append(expr);
+        if(expr != null){
+            stringBuilder.append(expr);
         }
-        sb.append('}');
-        return sb.toString();
+        return stringBuilder.toString();
     }
 }

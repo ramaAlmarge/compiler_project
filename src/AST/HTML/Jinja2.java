@@ -1,6 +1,6 @@
 package AST.HTML;
 
-public class Jinja2 {
+public class Jinja2 extends Root {
     Statement statement;
 
     public Statement getStatement() {
