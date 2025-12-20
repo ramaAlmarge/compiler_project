@@ -3,52 +3,28 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UrlValue implements  ValuePart{
-String url;
-List<String> id = new ArrayList<>();
-List<Float> number = new ArrayList<>();
-List<String> eq = new ArrayList<>();
-List<String> and = new ArrayList<>();
+public class UrlValue extends ValuePart {
 
-    public String getUrl() {
-        return url;
-    }
+    private String url;
+    private List<String> id = new ArrayList<>();
+    private List<Float> number = new ArrayList<>();
+    private List<String> eq = new ArrayList<>();
+    private List<String> and = new ArrayList<>();
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+    public String getUrl() { return url; }
+    public void setUrl(String url) { this.url = url; }
 
-    public List<String> getId() {
-        return id;
-    }
+    public List<String> getId() { return id; }
+    public void addId(String id) { this.id.add(id); }
 
-    public void setId(List<String> id) {
-        this.id = id;
-    }
+    public List<Float> getNumber() { return number; }
+    public void addNumber(Float number) { this.number.add(number); }
 
-    public List<Float> getNumber() {
-        return number;
-    }
+    public List<String> getEq() { return eq; }
+    public void addEq(String eq) { this.eq.add(eq); }
 
-    public void setNumber(List<Float> number) {
-        this.number = number;
-    }
-
-    public List<String> getEq() {
-        return eq;
-    }
-
-    public void setEq(List<String> eq) {
-        this.eq = eq;
-    }
-
-    public List<String> getAnd() {
-        return and;
-    }
-
-    public void setAnd(List<String> and) {
-        this.and = and;
-    }
+    public List<String> getAnd() { return and; }
+    public void addAnd(String and) { this.and.add(and); }
 
     @Override
     public String toString() {

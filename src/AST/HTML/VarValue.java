@@ -1,20 +1,19 @@
 package AST.HTML;
 
-public class VarValue implements ValuePart{
-String var;
+public class VarValue extends ValuePart {
 
-    public String getVar() {
-        return var;
+    private final String name;
+
+    public VarValue(String name) {
+        this.name = name;
     }
 
-    public void setVar(String var) {
-        this.var = var;
+    public String getName() {
+        return name;
     }
 
     @Override
     public String toString() {
-        return "VarValue{" +
-                "var='" + var + '\'' +
-                '}';
+        return name;
     }
 }

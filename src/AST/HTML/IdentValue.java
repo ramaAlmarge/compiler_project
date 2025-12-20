@@ -1,20 +1,19 @@
 package AST.HTML;
 
-public class IdentValue implements  ValuePart{
-String id;
+public class IdentValue extends ValuePart {
 
-    public String getId() {
-        return id;
+    private final String name;
+
+    public IdentValue(String name) {
+        this.name = name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getName() {
+        return name;
     }
 
     @Override
     public String toString() {
-        return "IdentValue{" +
-                "id='" + id + '\'' +
-                '}';
+        return name;
     }
 }

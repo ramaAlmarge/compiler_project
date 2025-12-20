@@ -1,20 +1,19 @@
 package AST.HTML;
 
-public class VarProperty implements Property{
-    String var;
+public class VarProperty extends Property {
 
-    public String getVar() {
-        return var;
+    private final String name;
+
+    public VarProperty(String name) {
+        this.name = name;
     }
 
-    public void setVar(String var) {
-        this.var = var;
+    public String getName() {
+        return name;
     }
 
     @Override
     public String toString() {
-        return "VarProperty{" +
-                "var='" + var + '\'' +
-                '}';
+        return name;
     }
 }

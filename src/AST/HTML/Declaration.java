@@ -1,30 +1,25 @@
 package AST.HTML;
 
-public class Declaration {
-    Property property;
-    Value value;
+public class Declaration extends Root {
+
+    private final Property property;
+    private final Value value;
+
+    public Declaration(Property property, Value value) {
+        this.property = property;
+        this.value = value;
+    }
 
     public Property getProperty() {
         return property;
-    }
-
-    public void setProperty(Property property) {
-        this.property = property;
     }
 
     public Value getValue() {
         return value;
     }
 
-    public void setValue(Value value) {
-        this.value = value;
-    }
-
     @Override
     public String toString() {
-        return "Declaration{" +
-                "property=" + property +
-                ", value=" + value +
-                '}';
+        return property + " : " + value + ";";
     }
 }

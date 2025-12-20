@@ -1,4 +1,4 @@
 package AST.HTML;
 
-public interface Combinator {
+public abstract class Combinator extends Root {
 }

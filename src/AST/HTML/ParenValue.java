@@ -1,7 +1,8 @@
 package AST.HTML;
 
-public class ParenValue implements ValuePart{
-    Value value;
+public class ParenValue extends ValuePart {
+
+    private Value value;
 
     public Value getValue() {
         return value;
@@ -13,8 +14,6 @@ public class ParenValue implements ValuePart{
 
     @Override
     public String toString() {
-        return "ParenValue{" +
-                "value=" + value +
-                '}';
+        return "(" + value + ")";
     }
 }

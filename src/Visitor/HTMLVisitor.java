@@ -108,73 +108,162 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     }
 
     @Override
-    public Object visitDeclaration(HTMLParser.DeclarationContext ctx) {
-        return super.visitDeclaration(ctx);
+    public Declaration visitDeclaration(HTMLParser.DeclarationContext ctx) {
+
+        Property property = (Property) visit(ctx.property());
+        Value value = (Value) visit(ctx.value());
+
+        return new Declaration(property, value);
     }
 
     @Override
-    public Object visitIdentProperty(HTMLParser.IdentPropertyContext ctx) {
-        return super.visitIdentProperty(ctx);
+    public Property visitIdentProperty(HTMLParser.IdentPropertyContext ctx) {
+        return new IdentProperty(ctx.ID().getText());
     }
 
     @Override
-    public Object visitVarProperty(HTMLParser.VarPropertyContext ctx) {
-        return super.visitVarProperty(ctx);
+    public Property visitVarProperty(HTMLParser.VarPropertyContext ctx) {
+        return new VarProperty(ctx.VAR().getText());
+    }
+
+
+    @Override
+    public Value visitValue(HTMLParser.ValueContext ctx) {Value node = new Value();
+        for (HTMLParser.ValuePartContext vpCtx : ctx.valuePart()) {
+            ValuePart part = (ValuePart) visit(vpCtx);
+            node.addValuePart(part);
+        }
+
+        return node;
     }
 
     @Override
-    public Object visitValue(HTMLParser.ValueContext ctx) {
-        return super.visitValue(ctx);
+    public ValuePart visitIdentValue(HTMLParser.IdentValueContext ctx) {
+        return new IdentValue(ctx.getText());
+    }
+
+
+    @Override
+    public ValuePart visitVarValue(HTMLParser.VarValueContext ctx) {
+        return new VarValue(ctx.getText());
     }
 
     @Override
-    public Object visitIdentValue(HTMLParser.IdentValueContext ctx) {
-        return super.visitIdentValue(ctx);
+    public ValuePart visitNumberValue(HTMLParser.NumberValueContext ctx) {
+
+        String text = ctx.getText();
+        Float number = null;
+        String unit = "";
+
+        int i = 0;
+        while (i < text.length() &&
+                (Character.isDigit(text.charAt(i)) || text.charAt(i) == '-' || text.charAt(i) == '.')) {
+            i++;
+        }
+
+        try {
+            number = Float.parseFloat(text.substring(0, i));
+        } catch (NumberFormatException e) {
+            number = 0f;
+        }
+
+        if (i < text.length()) {
+            unit = text.substring(i);
+        }
+
+        return new NumberValue(number, unit);
     }
 
     @Override
-    public Object visitVarValue(HTMLParser.VarValueContext ctx) {
-        return super.visitVarValue(ctx);
+    public ValuePart visitHashValue(HTMLParser.HashValueContext ctx) {
+        return new HashValue();
     }
 
     @Override
-    public Object visitNumberValue(HTMLParser.NumberValueContext ctx) {
-        return super.visitNumberValue(ctx);
+    public ValuePart visitImportantValue(HTMLParser.ImportantValueContext ctx) {
+        return new ImportantValue();
+    }
+
+
+    @Override
+    public ValuePart visitUrlValue(HTMLParser.UrlValueContext ctx) {UrlValue node = new UrlValue();
+
+
+        if (ctx.URL() != null) {
+            node.setUrl(ctx.URL().getText());
+        }
+
+        for (int i = 1; i < ctx.getChildCount() - 1; i++) {
+            var child = ctx.getChild(i);
+
+
+            String text = child.getText();
+
+            switch (text) {
+                case "=":
+                    node.addEq("=");
+                    break;
+                case "&":
+                    node.addAnd("&");
+                    break;
+                case "/":
+
+                    break;
+                case ":":
+                    break;
+                case ".":
+                    break;
+                case "?":
+
+                    break;
+                case "+":
+
+                    break;
+                case "-":
+
+                    break;
+                default:
+
+                    try {
+                        Float number = Float.parseFloat(text);
+                        node.addNumber(number);
+                    } catch (NumberFormatException e) {
+
+                        node.addId(text);
+                    }
+                    break;
+            }
+        }
+
+        return node;
+    }
+
+
+    @Override
+    public ValuePart visitParenValue(HTMLParser.ParenValueContext ctx) {
+        ParenValue node = new ParenValue();
+
+        if (ctx.value() != null) {
+            Value val = (Value) visitValue(ctx.value());
+            node.setValue(val);
+        }
+
+        return node;
     }
 
     @Override
-    public Object visitHashValue(HTMLParser.HashValueContext ctx) {
-        return super.visitHashValue(ctx);
+    public ValuePart visitCommaValue(HTMLParser.CommaValueContext ctx) {
+        return new CommaValue();
     }
 
     @Override
-    public Object visitImportantValue(HTMLParser.ImportantValueContext ctx) {
-        return super.visitImportantValue(ctx);
+    public ValuePart visitDotValue(HTMLParser.DotValueContext ctx) {
+        return new DotValue();
     }
 
     @Override
-    public Object visitUrlValue(HTMLParser.UrlValueContext ctx) {
-        return super.visitUrlValue(ctx);
-    }
-
-    @Override
-    public Object visitParenValue(HTMLParser.ParenValueContext ctx) {
-        return super.visitParenValue(ctx);
-    }
-
-    @Override
-    public Object visitCommaValue(HTMLParser.CommaValueContext ctx) {
-        return super.visitCommaValue(ctx);
-    }
-
-    @Override
-    public Object visitDotValue(HTMLParser.DotValueContext ctx) {
-        return super.visitDotValue(ctx);
-    }
-
-    @Override
-    public Object visitColonValue(HTMLParser.ColonValueContext ctx) {
-        return super.visitColonValue(ctx);
+    public ValuePart visitColonValue(HTMLParser.ColonValueContext ctx) {
+        return new ColonValue();
     }
 
     @Override

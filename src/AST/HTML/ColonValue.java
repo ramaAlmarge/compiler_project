@@ -1,8 +1,9 @@
 package AST.HTML;
 
-public class DotValue extends ValuePart{
+public class ColonValue extends ValuePart{
     @Override
     public String toString() {
-        return ".";
+        return ":";
     }
+
 }

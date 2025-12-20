@@ -1,4 +1,4 @@
 package AST.HTML;
 
-public interface Property {
+public abstract class Property extends Root {
 }

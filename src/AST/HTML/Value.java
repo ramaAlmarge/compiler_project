@@ -3,21 +3,24 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Value {
-    List<ValuePart> valuePart = new ArrayList<>();
+public class Value extends Root {
 
-    public List<ValuePart> getValuePart() {
-        return valuePart;
+    private final List<ValuePart> valueParts = new ArrayList<>();
+
+    public List<ValuePart> getValueParts() {
+        return valueParts;
     }
 
-    public void setValuePart(List<ValuePart> valuePart) {
-        this.valuePart = valuePart;
+    public void addValuePart(ValuePart part) {
+        valueParts.add(part);
     }
 
     @Override
     public String toString() {
-        return "Value{" +
-                "valuePart=" + valuePart +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        for (ValuePart vp : valueParts) {
+            sb.append(vp);
+        }
+        return sb.toString();
     }
 }
