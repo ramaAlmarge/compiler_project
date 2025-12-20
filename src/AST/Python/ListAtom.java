@@ -1,6 +1,6 @@
 package AST.Python;
 
-public class ListAtom extends Root{
+public class ListAtom extends Atom{
     Testlist_comp testlist_comp;
 
 

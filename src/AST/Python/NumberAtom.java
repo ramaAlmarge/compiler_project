@@ -1,6 +1,6 @@
 package AST.Python;
 
-public class NumberAtom extends Root {
+public class NumberAtom extends Atom {
     Number number;
     boolean isNegative = false;
 

@@ -1,6 +1,6 @@
 package AST.Python;
 
-public class ParenAtom extends Root {
+public class ParenAtom extends Atom {
     Testlist_comp testlist_comp;
 
     public Testlist_comp getTestlist_comp() {

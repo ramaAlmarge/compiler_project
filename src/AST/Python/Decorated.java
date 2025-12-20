@@ -3,7 +3,7 @@ package AST.Python;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Decorated extends Root {
+public class Decorated extends Stmt {
      List<Decorator> decorators = new ArrayList<>();
      Compound_stmt compoundStmt;
 
