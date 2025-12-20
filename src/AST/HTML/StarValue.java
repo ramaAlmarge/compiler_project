@@ -1,9 +1,8 @@
 package AST.HTML;
 
-public class EqualsValue extends ValuePart {
-
+public class StarValue extends ValuePart{
     @Override
     public String toString() {
-        return "=";
+        return "*";
     }
 }

@@ -1,6 +1,5 @@
 package Visitor;
 import AST.HTML.*;
-import antlrHTML.HTMLParser;
 import antlrHTML.*;
 public class HTMLVisitor  extends HTMLParserBaseVisitor{
     @Override
@@ -179,49 +178,54 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     }
 
     @Override
-    public Object visitSlashValue(HTMLParser.SlashValueContext ctx) {
-        return super.visitSlashValue(ctx);
+    public ValuePart visitSlashValue(HTMLParser.SlashValueContext ctx) {
+        return new SlashValue();
     }
 
     @Override
-    public Object visitGreaterValue(HTMLParser.GreaterValueContext ctx) {
-        return super.visitGreaterValue(ctx);
+    public ValuePart visitGreaterValue(HTMLParser.GreaterValueContext ctx) {
+        return new GreaterValue();
     }
 
     @Override
     public Object visitPlusValue(HTMLParser.PlusValueContext ctx) {
-        return super.visitPlusValue(ctx);
+        return new PlusValue();
     }
 
     @Override
-    public Object visitMinusValue(HTMLParser.MinusValueContext ctx) {
-        return super.visitMinusValue(ctx);
+    public ValuePart visitMinusValue(HTMLParser.MinusValueContext ctx) {
+        return new MinusValue();
     }
 
     @Override
-    public Object visitStarValue(HTMLParser.StarValueContext ctx) {
-        return super.visitStarValue(ctx);
+    public ValuePart visitStarValue(HTMLParser.StarValueContext ctx) {
+        return new StarValue();
     }
 
     @Override
-    public Object visitTildeValue(HTMLParser.TildeValueContext ctx) {
-        return super.visitTildeValue(ctx);
+    public ValuePart visitTildeValue(HTMLParser.TildeValueContext ctx) {
+        return new TildeValue();
     }
 
     @Override
-    public Object visitEqualsValue(HTMLParser.EqualsValueContext ctx) {
-        return super.visitEqualsValue(ctx);
+    public ValuePart visitEqualsValue(HTMLParser.EqualsValueContext ctx) {
+        return new EqualsValue();
     }
 
     @Override
-    public Object visitQuestionValue(HTMLParser.QuestionValueContext ctx) {
-        return super.visitQuestionValue(ctx);
+    public ValuePart visitQuestionValue(HTMLParser.QuestionValueContext ctx) {
+        return new QuestionValue();
     }
 
+
     @Override
-    public Object visitDoubleQuoteValue(HTMLParser.DoubleQuoteValueContext ctx) {
-        return super.visitDoubleQuoteValue(ctx);
+    public ValuePart visitDoubleQuoteValue(HTMLParser.DoubleQuoteValueContext ctx) {String text = ctx.getText();
+        if (text.length() >= 2 && text.startsWith("\"") && text.endsWith("\"")) {
+            text = text.substring(1, text.length() - 1);
+        }
+        return new DoubleQuoteValue(text);
     }
+
 
     @Override
     public Root visitAtRule(HTMLParser.AtRuleContext ctx) {

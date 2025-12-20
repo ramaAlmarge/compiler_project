@@ -1,11 +1,11 @@
 package AST.HTML;
 
-public class DoubleQuoteValue extends ValuePart {
+public class QuestionValue extends ValuePart {
 
     private String value;
 
-    public DoubleQuoteValue(String value) {
-        this.value = value;
+    public QuestionValue() {
+        this.value = "?";
     }
 
     public String getValue() {
@@ -14,6 +14,6 @@ public class DoubleQuoteValue extends ValuePart {
 
     @Override
     public String toString() {
-        return "\"" + value + "\"";
+        return value;
     }
 }
