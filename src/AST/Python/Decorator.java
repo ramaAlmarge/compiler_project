@@ -1,30 +1,33 @@
 package AST.Python;
 
-public class Decorator {
-    Dotted_name dotted_name;
-    Arglist arglist;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Dotted_name getDotted_name() {
-        return dotted_name;
+public class Decorator extends Root {
+     List<Name> names = new ArrayList<>();
+     List<Test> args = new ArrayList<>();
+
+    public List<Name> getNames() {
+        return names;
     }
 
-    public void setDotted_name(Dotted_name dotted_name) {
-        this.dotted_name = dotted_name;
+    public void addName(Name name) {
+        this.names.add(name);
     }
 
-    public Arglist getArglist() {
-        return arglist;
+    public List<Test> getArgs() {
+        return args;
     }
 
-    public void setArglist(Arglist arglist) {
-        this.arglist = arglist;
+    public void addArg(Test t) {
+        this.args.add(t);
     }
 
     @Override
     public String toString() {
         return "Decorator{" +
-                "dotted_name=" + dotted_name +
-                ", arglist=" + arglist +
+                "names=" + names +
+                ", args=" + args +
                 '}';
     }
 }

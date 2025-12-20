@@ -1,28 +1,13 @@
 package AST.Python;
 
-public class Func_def {
-    String async;
-    String def;
-    Name name;
-    Typedargslist typedargslist;
-    Test test;
-    Suite suite;
+import java.util.ArrayList;
+import java.util.List;
 
-    public String getAsync() {
-        return async;
-    }
-
-    public void setAsync(String async) {
-        this.async = async;
-    }
-
-    public String getDef() {
-        return def;
-    }
-
-    public void setDef(String def) {
-        this.def = def;
-    }
+public class Func_def extends Compound_stmt{
+     Name name;
+     List<Name> params = new ArrayList<>();
+     Test returnType;
+     Suite suite;
 
     public Name getName() {
         return name;
@@ -32,20 +17,20 @@ public class Func_def {
         this.name = name;
     }
 
-    public Typedargslist getTypedargslist() {
-        return typedargslist;
+    public List<Name> getParams() {
+        return params;
     }
 
-    public void setTypedargslist(Typedargslist typedargslist) {
-        this.typedargslist = typedargslist;
+    public void addParam(Name param) {
+        this.params.add(param);
     }
 
-    public Test getTest() {
-        return test;
+    public Test getReturnType() {
+        return returnType;
     }
 
-    public void setTest(Test test) {
-        this.test = test;
+    public void setReturnType(Test returnType) {
+        this.returnType = returnType;
     }
 
     public Suite getSuite() {
@@ -59,11 +44,9 @@ public class Func_def {
     @Override
     public String toString() {
         return "Func_def{" +
-                "async='" + async + '\'' +
-                ", def='" + def + '\'' +
-                ", name=" + name +
-                ", typedargslist=" + typedargslist +
-                ", test=" + test +
+                "name=" + name +
+                ", params=" + params +
+                ", returnType=" + returnType +
                 ", suite=" + suite +
                 '}';
     }

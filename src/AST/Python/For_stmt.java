@@ -1,52 +1,27 @@
 package AST.Python;
 
-public class For_stmt {
-    String async;
-    String for_name;
-    Exprlist exprlist;
-    String in;
-    Testlist testlist;
-    Suite suite;
-    Else_clause else_clause;
+import java.util.ArrayList;
+import java.util.List;
 
-    public String getAsync() {
-        return async;
+public class For_stmt extends Compound_stmt {
+     Exprlist targets;
+     List<Test> iterables = new ArrayList<>();
+     Suite suite;
+
+    public Exprlist getTargets() {
+        return targets;
     }
 
-    public void setAsync(String async) {
-        this.async = async;
+    public void setTargets(Exprlist targets) {
+        this.targets = targets;
     }
 
-    public String getFor_name() {
-        return for_name;
+    public List<Test> getIterables() {
+        return iterables;
     }
 
-    public void setFor_name(String for_name) {
-        this.for_name = for_name;
-    }
-
-    public Exprlist getExprlist() {
-        return exprlist;
-    }
-
-    public void setExprlist(Exprlist exprlist) {
-        this.exprlist = exprlist;
-    }
-
-    public String getIn() {
-        return in;
-    }
-
-    public void setIn(String in) {
-        this.in = in;
-    }
-
-    public Testlist getTestlist() {
-        return testlist;
-    }
-
-    public void setTestlist(Testlist testlist) {
-        this.testlist = testlist;
+    public void addIterable(Test t) {
+        this.iterables.add(t);
     }
 
     public Suite getSuite() {
@@ -57,24 +32,12 @@ public class For_stmt {
         this.suite = suite;
     }
 
-    public Else_clause getElse_clause() {
-        return else_clause;
-    }
-
-    public void setElse_clause(Else_clause else_clause) {
-        this.else_clause = else_clause;
-    }
-
     @Override
     public String toString() {
         return "For_stmt{" +
-                "async='" + async + '\'' +
-                ", for_name='" + for_name + '\'' +
-                ", exprlist=" + exprlist +
-                ", in='" + in + '\'' +
-                ", testlist=" + testlist +
+                "targets=" + targets +
+                ", iterables=" + iterables +
                 ", suite=" + suite +
-                ", else_clause=" + else_clause +
                 '}';
     }
 }
