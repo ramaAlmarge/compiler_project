@@ -1,6 +1,6 @@
 package AST.Python;
 
-public class NameAtom {
+public class NameAtom extends Atom{
     Name name;
 
     public Name getName() {
