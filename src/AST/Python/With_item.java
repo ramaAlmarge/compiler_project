@@ -1,8 +1,8 @@
 package AST.Python;
 
-public class With_item {
+public class With_item extends Root {
     Test test;
-    Expr expr;
+     Expr expr;
 
     public Test getTest() {
         return test;
@@ -12,19 +12,19 @@ public class With_item {
         this.test = test;
     }
 
-    public Expr getExpr() {
+    public Expr getAlias() {
         return expr;
     }
 
-    public void setExpr(Expr expr) {
-        this.expr = expr;
+    public void setAlias(Expr alias) {
+        this.expr = alias;
     }
 
     @Override
     public String toString() {
         return "With_item{" +
                 "test=" + test +
-                ", expr=" + expr +
+                ", alias=" + expr +
                 '}';
     }
 }

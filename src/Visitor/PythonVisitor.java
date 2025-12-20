@@ -6,74 +6,163 @@ import antlrPython.*;
 
 public class PythonVisitor extends PythonParserBaseVisitor {
     @Override
-    public Object visitRoot(PythonParser.RootContext ctx) {
-        return super.visitRoot(ctx);
+    public Program visitRoot(PythonParser.RootContext ctx) {
+        Program program = new Program();
+        for (PythonParser.StmtContext sctx : ctx.stmt()) {
+            program.addStmt((Stmt) visit(sctx));
+        }
+        return program;
     }
 
     @Override
-    public Object visitStmt(PythonParser.StmtContext ctx) {
-        return super.visitStmt(ctx);
+    public Root visitStmt(PythonParser.StmtContext ctx) {
+        if (ctx.simple_stmt() != null) {
+            return (Stmt) visit(ctx.simple_stmt());
+        }
+        if (ctx.compound_stmt() != null) {
+            return (Stmt) visit(ctx.compound_stmt());
+        }
+        return (Stmt) visit(ctx.decorated());
     }
 
     @Override
-    public Object visitSimple_stmt_line(PythonParser.Simple_stmt_lineContext ctx) {
-        return super.visitSimple_stmt_line(ctx);
+    public Simple_stmt visitSimple_stmt_line(PythonParser.Simple_stmt_lineContext ctx) {
+        SimpleStmtLine node = new SimpleStmtLine();
+        for (PythonParser.Small_stmtContext sctx : ctx.small_stmt()) {
+            node.getSmallStmts().add(
+                    (Small_stmt) visit(sctx)
+            );
+        }
+        return node;
     }
 
     @Override
-    public Object visitSimple_stmt_block(PythonParser.Simple_stmt_blockContext ctx) {
-        return super.visitSimple_stmt_block(ctx);
+    public Simple_stmt visitSimple_stmt_block(PythonParser.Simple_stmt_blockContext ctx) {
+        SimpleStmtBlock node = new SimpleStmtBlock();
+        for (PythonParser.Small_stmtContext sctx : ctx.small_stmt()) {
+            node.getSmallStmts().add((Small_stmt) visit(sctx));
+        }
+        return node;
     }
 
     @Override
-    public Object visitDecorated(PythonParser.DecoratedContext ctx) {
-        return super.visitDecorated(ctx);
+    public Root visitDecorated(PythonParser.DecoratedContext ctx) {
+        Decorated node = new Decorated();
+        for (PythonParser.DecoratorContext dctx : ctx.decorator()) {
+            node.addDecorator((Decorator) visit(dctx));
+        }
+        node.setCompoundStmt((Compound_stmt) visit(ctx.compound_stmt()));
+        return node;
     }
 
     @Override
-    public Object visitIf_stmt(PythonParser.If_stmtContext ctx) {
-        return super.visitIf_stmt(ctx);
+    public Compound_stmt visitIf_stmt(PythonParser.If_stmtContext ctx) {
+        If_stmt node = new If_stmt();
+        if (ctx.IF() != null) {
+            node.setKeyword("IF");
+        } else if (ctx.ELIF() != null) {
+            node.setKeyword("ELIF");
+        } else {
+            node.setKeyword("ELSE");
+        }
+        if (ctx.test() != null) {
+            node.setCondition((Test) visit(ctx.test()));
+        }
+        node.setSuite((Suite) visit(ctx.suite())
+        );
+        return node;
     }
 
     @Override
-    public Object visitWhile_stmt(PythonParser.While_stmtContext ctx) {
+    public Compound_stmt visitWhile_stmt(PythonParser.While_stmtContext ctx) {
 
-        return super.visitWhile_stmt(ctx);
+        While_stmt node = new While_stmt();
+        node.setCondition((Test) visit(ctx.test()));
+        node.setSuite((Suite) visit(ctx.suite()));
+        return node;
     }
 
     @Override
-    public Object visitFor_stmt(PythonParser.For_stmtContext ctx) {
-        return super.visitFor_stmt(ctx);
+    public Compound_stmt visitFor_stmt(PythonParser.For_stmtContext ctx) {
+        For_stmt node = new For_stmt();
+        node.setTargets((Exprlist) visit(ctx.exprlist()));
+        for (PythonParser.TestContext tctx : ctx.test()) {
+            node.addIterable((Test) visit(tctx));
+        }
+        node.setSuite((Suite) visit(ctx.suite()));
+        return node;
     }
 
     @Override
-    public Object visitTry_stmt(PythonParser.Try_stmtContext ctx) {
-        return super.visitTry_stmt(ctx);
+    public Compound_stmt visitTry_stmt(PythonParser.Try_stmtContext ctx) {
+        Try_stmt node = new Try_stmt();
+        node.setTrySuite((Suite) visit(ctx.suite()));
+        for (PythonParser.Except_clauseContext ectx : ctx.except_clause()) {
+            node.addExceptClause((Except_clause) visit(ectx));
+        }
+        return node;
     }
 
     @Override
-    public Object visitWith_stmt(PythonParser.With_stmtContext ctx) {
-        return super.visitWith_stmt(ctx);
+    public Compound_stmt visitWith_stmt(PythonParser.With_stmtContext ctx) {
+        With_stmt node = new With_stmt();
+        for (PythonParser.With_itemContext wctx : ctx.with_item()) {
+            node.addItem((With_item) visit(wctx));
+        }
+        node.setSuite((Suite) visit(ctx.suite()));
+        return node;
     }
 
     @Override
-    public Object visitFunc_def(PythonParser.Func_defContext ctx) {
-        return super.visitFunc_def(ctx);
+    public Compound_stmt visitFunc_def(PythonParser.Func_defContext ctx) {
+        Func_def node = new Func_def();
+        node.setName((Name) visit(ctx.name(0)));
+        for (int i = 1; i < ctx.name().size(); i++) {
+            node.addParam((Name) visit(ctx.name(i)));
+        }
+        if (ctx.ARROW() != null) {
+            node.setReturnType((Test) visit(ctx.test()));
+        }
+        node.setSuite((Suite) visit(ctx.suite()));
+        return node;
     }
 
     @Override
-    public Object visitSuite(PythonParser.SuiteContext ctx) {
-        return super.visitSuite(ctx);
+    public Root visitSuite(PythonParser.SuiteContext ctx) {
+        Suite node = new Suite();
+        if (ctx.simple_stmt() != null) {
+            node.addStmt((Stmt) visit(ctx.simple_stmt()));
+        }
+        for (PythonParser.StmtContext sctx : ctx.stmt()) {
+            node.addStmt((Stmt) visit(sctx));
+        }
+        return node;
     }
 
     @Override
-    public Object visitDecorator(PythonParser.DecoratorContext ctx) {
-        return super.visitDecorator(ctx);
+    public Root visitDecorator(PythonParser.DecoratorContext ctx) {
+        Decorator node = new Decorator();
+        for (PythonParser.NameContext nctx : ctx.name()) {
+            node.addName((Name) visit(nctx));
+        }
+        if (ctx.LPAREN() != null) {
+            if (ctx.test() != null){
+                for (PythonParser.TestContext tctx : ctx.test()) {
+                    node.addArg((Test) visit(tctx));
+                }
+            }
+        }
+        return node;
     }
 
     @Override
-    public Object visitWith_item(PythonParser.With_itemContext ctx) {
-        return super.visitWith_item(ctx);
+    public Root visitWith_item(PythonParser.With_itemContext ctx) {
+        With_item node = new With_item();
+        node.setTest((Test) visit(ctx.test()));
+        if (ctx.expr() != null) {
+            node.setAlias((Expr) visit(ctx.expr()));
+        }
+        return node;
     }
 
     @Override
@@ -129,7 +218,6 @@ public class PythonVisitor extends PythonParserBaseVisitor {
         }
         return node;
     }
-
 
     @Override
     public Assign_part visitAnnotatedAssign(PythonParser.AnnotatedAssignContext ctx) {

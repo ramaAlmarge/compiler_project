@@ -3,7 +3,7 @@ package AST.Python;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleStmtBlock {
+public class SimpleStmtBlock extends Simple_stmt {
     List<Small_stmt> smallStmts = new ArrayList<>();
 
     public List<Small_stmt> getSmallStmts() {

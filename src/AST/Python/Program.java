@@ -1,25 +1,23 @@
 package AST.Python;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Program {
-    ArrayList<Root> program;
+public class Program extends Root {
+    List<Stmt> stmts = new ArrayList<>();
 
-    public Program() {
-        this.program = new ArrayList<>();
+    public List<Stmt> getStmts() {
+        return stmts;
     }
 
-    public void setProgram(Root program) {
-        this.program.add(program);
+    public void addStmt(Stmt stmt) {
+        this.stmts.add(stmt);
     }
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Root program : this.program){
-            stringBuilder.append(program);
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
+        return "Program{" +
+                "stmts=" + stmts +
+                '}';
     }
 }

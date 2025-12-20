@@ -3,41 +3,31 @@ package AST.Python;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Decorated {
-    List<Decorator> decorator = new ArrayList<>();
-    Funcdef funcdef;
-    Classdef classdef;
+public class Decorated extends Root {
+     List<Decorator> decorators = new ArrayList<>();
+     Compound_stmt compoundStmt;
 
-    public Classdef getClassdef() {
-        return classdef;
+    public List<Decorator> getDecorators() {
+        return decorators;
     }
 
-    public void setClassdef(Classdef classdef) {
-        this.classdef = classdef;
+    public void addDecorator(Decorator decorator) {
+        this.decorators.add(decorator);
     }
 
-    public List<Decorator> getDecorator() {
-        return decorator;
+    public Compound_stmt getCompoundStmt() {
+        return compoundStmt;
     }
 
-    public void setDecorator(List<Decorator> decorator) {
-        this.decorator = decorator;
-    }
-
-    public Funcdef getFuncdef() {
-        return funcdef;
-    }
-
-    public void setFuncdef(Funcdef funcdef) {
-        this.funcdef = funcdef;
+    public void setCompoundStmt(Compound_stmt compoundStmt) {
+        this.compoundStmt = compoundStmt;
     }
 
     @Override
     public String toString() {
         return "Decorated{" +
-                "decorator=" + decorator +
-                ", funcdef=" + funcdef +
-                ", classdef=" + classdef +
+                "decorators=" + decorators +
+                ", compoundStmt=" + compoundStmt +
                 '}';
     }
 }
