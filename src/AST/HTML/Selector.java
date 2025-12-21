@@ -3,41 +3,40 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Selector {
-List<SimpleSelector> simpleSelector = new ArrayList<>();
-List<Combinator> combinator = new ArrayList<>();
-    Selector selector;
+public class Selector extends Root {
 
-    public List<SimpleSelector> getSimpleSelector() {
-        return simpleSelector;
+    private final List<SimpleSelector> selectors = new ArrayList<>();
+    private final List<Combinator> combinators = new ArrayList<>();
+
+    // selectors: s0 c0 s1 c1 s2 ...
+    public void addSimpleSelector(SimpleSelector s) {
+        selectors.add(s);
     }
 
-    public void setSimpleSelector(List<SimpleSelector> simpleSelector) {
-        this.simpleSelector = simpleSelector;
+    public void addCombinator(Combinator c) {
+        combinators.add(c);
     }
 
-    public List<Combinator> getCombinator() {
-        return combinator;
+    public List<SimpleSelector> getSelectors() {
+        return selectors;
     }
 
-    public void setCombinator(List<Combinator> combinator) {
-        this.combinator = combinator;
-    }
-
-    public Selector getSelector() {
-        return selector;
-    }
-
-    public void setSelector(Selector selector) {
-        this.selector = selector;
+    public List<Combinator> getCombinators() {
+        return combinators;
     }
 
     @Override
     public String toString() {
-        return "Selector{" +
-                "simpleSelector=" + simpleSelector +
-                ", combinator=" + combinator +
-                ", selector=" + selector +
-                '}';
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(selectors.get(0));
+        for (int i = 0; i < combinators.size(); i++) {
+            sb.append(" ")
+                    .append(combinators.get(i))
+                    .append(" ")
+                    .append(selectors.get(i + 1));
+        }
+
+        return sb.toString();
     }
 }

@@ -1,6 +1,6 @@
 package AST.HTML;
 
-public class Style {
+public class Style extends Root {
     Rule rule;
     AtRule atRule;
 
@@ -23,13 +23,8 @@ public class Style {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Style{");
-
-        if (rule != null) {
-            sb.append("rule=").append(rule);
-        }
-        if (atRule != null) {
-            sb.append("atRule=").append(atRule);
-        }
+        if (rule != null) sb.append("rule=").append(rule);
+        if (atRule != null) sb.append("atRule=").append(atRule);
         sb.append('}');
         return sb.toString();
     }

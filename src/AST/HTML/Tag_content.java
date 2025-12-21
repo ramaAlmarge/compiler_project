@@ -3,7 +3,7 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tag_content {
+public class Tag_content extends Root {
     List<Ident> ident = new ArrayList<>();
     String id;
 
@@ -11,8 +11,9 @@ public class Tag_content {
         return ident;
     }
 
-    public void setIdent(List<Ident> ident) {
-        this.ident = ident;
+
+    public void addIdent(Ident i) {
+        this.ident.add(i);
     }
 
     public String getId() {

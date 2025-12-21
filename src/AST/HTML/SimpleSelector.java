@@ -3,61 +3,52 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleSelector {
-    TypeSelector typeSelector;
-    Universal universal;
-    List<Class> class_name = new ArrayList<>();
-    List<Attrib> attrib = new ArrayList<>();
-    List<Pseudo> pseudo = new ArrayList<>();
+public class SimpleSelector extends Selector {
 
-    public TypeSelector getTypeSelector() {
-        return typeSelector;
-    }
+    private TypeSelector typeSelector;
+    private Universal universal;
+
+    private final List<HashSelector> hashes = new ArrayList<>();
+    private final List<Class> classes = new ArrayList<>();
+    private final List<Attrib> attribs = new ArrayList<>();
+    private final List<Pseudo> pseudos = new ArrayList<>();
 
     public void setTypeSelector(TypeSelector typeSelector) {
         this.typeSelector = typeSelector;
-    }
-
-    public Universal getUniversal() {
-        return universal;
     }
 
     public void setUniversal(Universal universal) {
         this.universal = universal;
     }
 
-    public List<Class> getClass_name() {
-        return class_name;
+    public void addHash(HashSelector hash) {
+        hashes.add(hash);
     }
 
-    public void setClass_name(List<Class> class_name) {
-        this.class_name = class_name;
+    public void addClass(Class cls) {
+        classes.add(cls);
     }
 
-    public List<Attrib> getAttrib() {
-        return attrib;
+    public void addAttrib(Attrib attrib) {
+        attribs.add(attrib);
     }
 
-    public void setAttrib(List<Attrib> attrib) {
-        this.attrib = attrib;
-    }
-
-    public List<Pseudo> getPseudo() {
-        return pseudo;
-    }
-
-    public void setPseudo(List<Pseudo> pseudo) {
-        this.pseudo = pseudo;
+    public void addPseudo(Pseudo pseudo) {
+        pseudos.add(pseudo);
     }
 
     @Override
     public String toString() {
-        return "SimpleSelector{" +
-                "typeSelector=" + typeSelector +
-                ", universal=" + universal +
-                ", class_name=" + class_name +
-                ", attrib=" + attrib +
-                ", pseudo=" + pseudo +
-                '}';
+        StringBuilder sb = new StringBuilder();
+
+        if (typeSelector != null) sb.append(typeSelector);
+        if (universal != null) sb.append(universal);
+
+        hashes.forEach(sb::append);
+        classes.forEach(sb::append);
+        attribs.forEach(sb::append);
+        pseudos.forEach(sb::append);
+
+        return sb.toString();
     }
 }

@@ -1,6 +1,6 @@
 package AST.HTML;
 
-public class Html_content {
+public class Html_content extends Root {
     Tag tag;
     Style style;
     Jinja2 jinja2;
@@ -32,17 +32,10 @@ public class Html_content {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Html_content{");
-        if (tag != null) {
-            sb.append("tag=").append(tag);
-        }
-        if (style != null) {
-            sb.append("style=").append(style);
-        }
-        if (jinja2 != null) {
-            sb.append("jinja2=").append(jinja2);
-        }
+        if (tag != null) sb.append("tag=").append(tag).append(", ");
+        if (style != null) sb.append("style=").append(style).append(", ");
+        if (jinja2 != null) sb.append("jinja2=").append(jinja2);
         sb.append('}');
         return sb.toString();
-
     }
 }

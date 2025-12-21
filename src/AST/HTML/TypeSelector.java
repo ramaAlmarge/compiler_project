@@ -1,20 +1,23 @@
 package AST.HTML;
 
-public class TypeSelector {
-    String id;
+public class TypeSelector extends Root {
+
+    private String id; // قد يكون null
+
+    public TypeSelector(String id) {
+        this.id = id;
+    }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public boolean isUniversal() {
+        return id == null;
     }
 
     @Override
     public String toString() {
-        return "TypeSelector{" +
-                "id='" + id + '\'' +
-                '}';
+        return id == null ? "" : id;
     }
 }

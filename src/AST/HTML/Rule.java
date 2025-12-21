@@ -3,7 +3,7 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rule {
+public class Rule extends Root {
     Selector selector;
     List<String> ID = new ArrayList<>();
     List<Declaration> declaration = new ArrayList<>();
@@ -20,16 +20,18 @@ public class Rule {
         return ID;
     }
 
-    public void setID(List<String> ID) {
-        this.ID = ID;
+
+    public void addID(String id) {
+        this.ID.add(id);
     }
 
     public List<Declaration> getDeclaration() {
         return declaration;
     }
 
-    public void setDeclaration(List<Declaration> declaration) {
-        this.declaration = declaration;
+
+    public void addDeclaration(Declaration decl) {
+        this.declaration.add(decl);
     }
 
     @Override

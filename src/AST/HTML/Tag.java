@@ -3,17 +3,9 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tag {
+public class Tag extends Root {
     Tag_content tag_content;
     List<String> id = new ArrayList<>();
-
-    public List<String> getId() {
-        return id;
-    }
-
-    public void setId(List<String> id) {
-        this.id = id;
-    }
 
     public Tag_content getTag_content() {
         return tag_content;
@@ -21,6 +13,15 @@ public class Tag {
 
     public void setTag_content(Tag_content tag_content) {
         this.tag_content = tag_content;
+    }
+
+    public List<String> getId() {
+        return id;
+    }
+
+    // لإضافة عنصر واحد في كل مرة
+    public void addId(String id) {
+        this.id.add(id);
     }
 
     @Override

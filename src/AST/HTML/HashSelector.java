@@ -1,10 +1,10 @@
 package AST.HTML;
 
-public class AttribWithoutValue extends Attrib {
+public class HashSelector extends Selector {
 
-    private String id;
+    private final String id;
 
-    public AttribWithoutValue(String id) {
+    public HashSelector(String id) {
         this.id = id;
     }
 
@@ -14,6 +14,6 @@ public class AttribWithoutValue extends Attrib {
 
     @Override
     public String toString() {
-        return "[" + id + "]";
+        return "#" + id;
     }
 }

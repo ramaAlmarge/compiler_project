@@ -1,8 +1,9 @@
 package AST.HTML;
 
-public class Ident {
+public class Ident extends Root {
     String id;
     String eq;
+    String doubleQuote;
 
     public String getId() {
         return id;
@@ -20,15 +21,20 @@ public class Ident {
         this.eq = eq;
     }
 
+    public String getDoubleQuote() {
+        return doubleQuote;
+    }
+
+    public void setDoubleQuote(String doubleQuote) {
+        this.doubleQuote = doubleQuote;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Ident{");
-        if (id != null) {
-            sb.append("id=").append(id);
-        }
-        if (eq != null) {
-            sb.append("eq=").append(eq);
-        }
+        if (id != null) sb.append("id=").append(id).append(", ");
+        if (eq != null) sb.append("eq=").append(eq).append(", ");
+        if (doubleQuote != null) sb.append("doubleQuote=").append(doubleQuote);
         sb.append('}');
         return sb.toString();
     }
