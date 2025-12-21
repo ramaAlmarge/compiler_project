@@ -12,9 +12,6 @@ public class Expr_stmt extends Small_stmt{
 
     @Override
     public String toString(int level) {
-        return "Expr_stmt{" +"\n"+
-                "test=" + test +
-                ", assignPart=" + assignPart +
-                '}';
+        return toTreeString(level);
     }
 }

@@ -9,8 +9,6 @@ public class ListAssign extends Assign_part{
 
     @Override
     public String toString(int level) {
-        return "ListAssign{" +
-                "stmt=" + stmt +
-                '}';
+        return toTreeString(level);
     }
 }

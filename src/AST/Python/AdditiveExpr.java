@@ -1,13 +1,11 @@
 package AST.Python;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class AdditiveExpr extends Expr {
     public enum BinaryOp {
         PLUS,
         MINUS
     }
+
     Expr left;
     Expr right;
     BinaryOp op;
@@ -26,10 +24,6 @@ public class AdditiveExpr extends Expr {
 
     @Override
     public String toString(int level) {
-        return "BinaryExpr{" +
-                "left=" + left +
-                ", op=" + op +
-                ", right=" + right +
-                '}';
+        return toTreeString(level);
     }
 }

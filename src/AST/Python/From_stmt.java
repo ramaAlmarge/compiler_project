@@ -16,9 +16,6 @@ public class From_stmt extends Small_stmt {
 
     @Override
     public String toString(int level) {
-        return "From_stmt{" +"\n"+
-                "module=" + module +
-                ", imported=" + imported +
-                '}';
+        return toTreeString(level);
     }
 }

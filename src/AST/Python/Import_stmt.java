@@ -8,8 +8,6 @@ public class Import_stmt extends Small_stmt{
 
     @Override
     public String toString(int level) {
-        return "Import_stmt{" +"\n"+
-                "name=" + name +
-                '}';
+        return toTreeString(level);
     }
 }

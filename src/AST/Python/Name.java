@@ -31,10 +31,6 @@ public class Name extends Root {
 
     @Override
     public String toString(int level) {
-        return "Name{" +
-                "name='" + name + '\'' +
-                ", true_name='" + true_name + '\'' +
-                ", false_name='" + false_name + '\'' +
-                '}';
+        return toTreeString(level);
     }
 }

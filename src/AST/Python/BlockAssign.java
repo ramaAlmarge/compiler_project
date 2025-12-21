@@ -16,8 +16,6 @@ public class BlockAssign extends Assign_part{
 
     @Override
     public String toString(int level) {
-        return "BlockAssign{" +"="+"\n"+"{"+
-                  small_stmt +"\n"+"}"+
-                "}";
+        return toTreeString(level);
     }
 }

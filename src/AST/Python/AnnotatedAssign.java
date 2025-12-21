@@ -21,9 +21,6 @@ public class AnnotatedAssign extends Assign_part {
 
     @Override
     public String toString(int level) {
-        return "AnnotatedAssign{" +
-                "test=" + test +
-                ", defaultValues=" + defaultValues +
-                '}';
+        return toTreeString(level);
     }
 }

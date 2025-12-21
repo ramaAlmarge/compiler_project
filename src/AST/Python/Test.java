@@ -22,9 +22,6 @@ public class Test extends Root {
     @Override
     public String toString(int level) {
 
-        return "Test{" +
-                "test=" + test +
-                ", comparison=" + comparison +
-                '}';
+        return toTreeString(level);
     }
 }

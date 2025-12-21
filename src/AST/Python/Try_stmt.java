@@ -25,9 +25,6 @@ public class Try_stmt extends Compound_stmt{
 
     @Override
     public String toString(int level) {
-        return "Try_stmt{" +
-                "trySuite=" + trySuite +
-                ", exceptClauses=" + exceptClauses +
-                '}';
+        return toTreeString(level);
     }
 }

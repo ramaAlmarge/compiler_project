@@ -34,10 +34,6 @@ public class For_stmt extends Compound_stmt {
 
     @Override
     public String toString(int level) {
-        return "For_stmt{" +
-                "targets=" + targets +
-                ", iterables=" + iterables +
-                ", suite=" + suite +
-                '}';
+        return toTreeString(level);
     }
 }

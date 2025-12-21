@@ -25,9 +25,6 @@ public class Decorated extends Stmt {
 
     @Override
     public String toString(int level) {
-        return "Decorated{" +
-                "decorators=" + decorators +
-                ", compoundStmt=" + compoundStmt +
-                '}';
+        return toTreeString(level);
     }
 }

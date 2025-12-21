@@ -17,9 +17,6 @@ public class AtomExpr extends Expr {
 
     @Override
     public String toString(int level) {
-        return "AtomExpr{" +
-                "atom=" + atom +
-                ", trailers=" + trailers +
-                '}';
+        return toTreeString(level);
     }
 }

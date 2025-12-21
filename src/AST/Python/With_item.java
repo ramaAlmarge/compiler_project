@@ -22,9 +22,6 @@ public class With_item extends Root {
 
     @Override
     public String toString(int level) {
-        return "With_item{" +
-                "test=" + test +
-                ", alias=" + expr +
-                '}';
+        return toTreeString(level);
     }
 }

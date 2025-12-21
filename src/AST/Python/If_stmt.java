@@ -34,10 +34,6 @@ public class If_stmt extends Compound_stmt{
 
     @Override
     public String toString(int level) {
-        return "If_stmt{" +
-                "keyword='" + keyword + '\'' +
-                ", condition=" + condition +
-                ", suite=" + suite +
-                '}';
+        return toTreeString(level);
     }
 }

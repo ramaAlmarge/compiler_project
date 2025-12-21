@@ -26,9 +26,6 @@ public class Number extends Root {
 
     @Override
     public String toString(int level) {
-        return "Number{" +
-                "integer_number=" + integer_number +
-                ", float_number=" + float_number +
-                '}';
+        return toTreeString(level);
     }
 }

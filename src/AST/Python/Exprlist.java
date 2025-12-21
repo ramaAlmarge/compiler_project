@@ -16,8 +16,6 @@ public class Exprlist extends Root{
 
     @Override
     public String toString(int level) {
-        return "Exprlist{" +
-                "exprs=" + exprs +
-                '}';
+        return toTreeString(level);
     }
 }

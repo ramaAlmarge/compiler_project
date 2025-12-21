@@ -16,8 +16,6 @@ public class Suite extends Root {
 
     @Override
     public String toString(int level) {
-        return "Suite{" +
-                "stmts=" + stmts +
-                '}';
+        return toTreeString(level);
     }
 }

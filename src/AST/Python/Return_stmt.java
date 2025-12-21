@@ -16,8 +16,6 @@ public class Return_stmt extends Small_stmt {
 
     @Override
     public String toString(int level) {
-        return "Return_stmt{" +"\n"+
-                "values=" + values +
-                '}';
+        return toTreeString(level);
     }
 }

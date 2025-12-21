@@ -16,8 +16,6 @@ public class SimpleStmtLine extends Simple_stmt {
 
     @Override
     public String toString(int level) {
-        return "Simple_stmt{"+"\n"+"SimpleStmtLine{" +"\n"+
-                "smallStmts" + smallStmts +
-                '}'+"\n"+'}';
+        return toTreeString(level);
     }
 }
