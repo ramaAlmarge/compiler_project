@@ -7,65 +7,39 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public class HTMLVisitor  extends HTMLParserBaseVisitor{
     @Override
     public Program visitRoot(HTMLParser.RootContext ctx) {
-        Program program = new Program(); // node ملموس من Root
-
-        if (ctx.html_content() != null) {
+        Program program = new Program();
             for (HTMLParser.Html_contentContext hcCtx : ctx.html_content()) {
-                Html_content htmlNode = (Html_content) visitHtml_content(hcCtx);
-                program.addHtmlContent(htmlNode);
+                program.addHtmlContent((Root) visit(hcCtx));
             }
-        }
+
 
         return program;
     }
 
 
-
-    @Override
     public Root visitHtml_content(HTMLParser.Html_contentContext ctx) {
         Html_content node = new Html_content();
-
-        if (ctx.getChildCount() > 0) {
-            if (ctx.getChild(0) instanceof HTMLParser.TagContext) {
-                Tag tagNode = (Tag) visit(ctx.getChild(0));
-                node.setTag(tagNode);
-            } else if (ctx.getChild(0) instanceof HTMLParser.StyleContext) {
-                Style styleNode = (Style) visit(ctx.getChild(0));
-                node.setStyle(styleNode);
-            } else if (ctx.getChild(0) instanceof HTMLParser.Jinja2Context) {
-                Jinja2 jinjaNode = (Jinja2) visit(ctx.getChild(0));
-                node.setJinja2(jinjaNode);
-            }
+        if (ctx.tag() != null) {
+            node.setTag((Tag) visit(ctx.tag()));
+        } else if (ctx.style() != null) {
+            node.setStyle((Style) visit(ctx.style()));
+        } else if (ctx.jinja2() != null) {
+            node.setJinja2((Jinja2) visit(ctx.jinja2()));
         }
-
         return node;
     }
 
     @Override
     public Root visitTag(HTMLParser.TagContext ctx) {
         Tag node = new Tag();
-
-        for (int i = 0; i < ctx.getChildCount(); i++) {
-            if (ctx.getChild(i) instanceof HTMLParser.Tag_contentContext) {
-                Tag_content tagContentNode = (Tag_content) visit(ctx.getChild(i));
-                node.setTag_content(tagContentNode);
+        node.setTag_content((Tag_content) visit(ctx.tag_content()));
+        if (ctx.ID() != null) {
+            for (var idToken : ctx.ID()) {
+                node.addId(idToken.getText());
             }
         }
-
-        for (int i = 0; i < ctx.getChildCount(); i++) {
-            if (ctx.getChild(i) instanceof HTMLParser.IdentContext) {
-                Ident idNode = (Ident) visit(ctx.getChild(i));
-                if (idNode.getId() != null) {
-                    node.addId(idNode.getId());
-                } else if (idNode.getEq() != null) {
-                    node.addId(idNode.getEq());
-                } else if (idNode.getDoubleQuote() != null) {
-                    node.addId(idNode.getDoubleQuote());
-                }
-            }
-        }
-
         return node;
+
     }
 
 
@@ -212,7 +186,7 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
                 }
 
             } else if (child instanceof HTMLParser.ClassContext) {
-                node.addClass((Class) visit(child));
+                node.addClass((ClassSelector) visit(child));
 
             } else if (child instanceof HTMLParser.AttribContext) {
                 node.addAttrib((Attrib) visit(child));

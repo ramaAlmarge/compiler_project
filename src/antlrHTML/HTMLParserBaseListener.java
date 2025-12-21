@@ -1,4 +1,4 @@
-// Generated from C:/Users/Mutaz13/Documents/CompilerProject/src/HTMLParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Mutaz13/Documents/compilerProjectGithub/compiler_project/src/HTMLParser.g4 by ANTLR 4.13.2
 
 package antlrHTML;
 
@@ -230,6 +230,114 @@ public class HTMLParserBaseListener implements HTMLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPseudoExpr(HTMLParser.PseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNumberPseudoExpr(HTMLParser.NumberPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNumberPseudoExpr(HTMLParser.NumberPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdentPseudoExpr(HTMLParser.IdentPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdentPseudoExpr(HTMLParser.IdentPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlusPseudoExpr(HTMLParser.PlusPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlusPseudoExpr(HTMLParser.PlusPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMinusPseudoExpr(HTMLParser.MinusPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMinusPseudoExpr(HTMLParser.MinusPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStarPseudoExpr(HTMLParser.StarPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStarPseudoExpr(HTMLParser.StarPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSlashPseudoExpr(HTMLParser.SlashPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSlashPseudoExpr(HTMLParser.SlashPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterColonPseudoExpr(HTMLParser.ColonPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitColonPseudoExpr(HTMLParser.ColonPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNotPseudoExpr(HTMLParser.NotPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNotPseudoExpr(HTMLParser.NotPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNestedPseudoExpr(HTMLParser.NestedPseudoExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNestedPseudoExpr(HTMLParser.NestedPseudoExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

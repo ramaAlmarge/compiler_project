@@ -19,16 +19,30 @@ public class Tag extends Root {
         return id;
     }
 
-    // لإضافة عنصر واحد في كل مرة
     public void addId(String id) {
         this.id.add(id);
     }
 
     @Override
     public String toString(int level) {
-        return "Tag{" +
-                "tag_content=" + tag_content +
-                ", id=" + id +
-                '}';
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(indent(level)).append("Tag {\n");
+
+        sb.append(indent(level + 1))
+                .append("tag_content:\n")
+                .append(tag_content.toString(level + 2))
+                .append("\n");
+
+        if (!id.isEmpty()) {
+            sb.append(indent(level + 1))
+                    .append("id: ")
+                    .append(id)
+                    .append("\n");
+        }
+
+        sb.append(indent(level)).append("}");
+
+        return sb.toString();
     }
 }
