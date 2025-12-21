@@ -40,9 +40,6 @@ public class Main {
             ParseTree tree = parser.root();
             HTMLVisitor htmlVisitor = new HTMLVisitor();
 
-
-
-
         }
     }
 }
