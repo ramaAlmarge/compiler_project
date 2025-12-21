@@ -7,8 +7,8 @@ public class Import_stmt extends Small_stmt{
     public void setName(Name name) { this.name = name; }
 
     @Override
-    public String toString() {
-        return "Import_stmt{" +
+    public String toString(int level) {
+        return "Import_stmt{" +"\n"+
                 "name=" + name +
                 '}';
     }

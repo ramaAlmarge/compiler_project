@@ -20,7 +20,7 @@ public class Trailer extends Root{
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Trailer{" +
                 "name=" + name +
                 ", test=" + test +

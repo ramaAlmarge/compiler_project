@@ -9,7 +9,7 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     public Program visitRoot(PythonParser.RootContext ctx) {
         Program program = new Program();
         for (PythonParser.StmtContext sctx : ctx.stmt()) {
-            program.addStmt((Stmt) visit(sctx));
+            program.addStmt((Root) visit(sctx));
         }
         return program;
     }
@@ -234,7 +234,7 @@ public class PythonVisitor extends PythonParserBaseVisitor {
     @Override
     public Assign_part visitListAssign(PythonParser.ListAssignContext ctx) {
         ListAssign node = new ListAssign();
-        node.setStmt((Small_stmt) visit(ctx.simple_stmt()));
+        node.setStmt((Simple_stmt) visit(ctx.simple_stmt()));
         return node;
     }
 

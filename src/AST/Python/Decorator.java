@@ -24,7 +24,7 @@ public class Decorator extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Decorator{" +
                 "names=" + names +
                 ", args=" + args +

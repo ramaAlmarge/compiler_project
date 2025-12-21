@@ -25,7 +25,7 @@ public class Comparison extends Root{
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Comparison{" +
                 "exprs=" + expr +
                 ", ops=" + ops +

@@ -15,7 +15,7 @@ public class Suite extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Suite{" +
                 "stmts=" + stmts +
                 '}';

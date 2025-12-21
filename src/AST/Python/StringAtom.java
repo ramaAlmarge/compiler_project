@@ -15,7 +15,7 @@ public class StringAtom extends Atom{
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "StringAtom{" +
                 "string=" + string +
                 '}';

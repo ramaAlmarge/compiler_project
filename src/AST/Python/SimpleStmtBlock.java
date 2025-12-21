@@ -15,8 +15,8 @@ public class SimpleStmtBlock extends Simple_stmt {
     }
 
     @Override
-    public String toString() {
-        return "SimpleStmtBlock{" +
+    public String toString(int level) {
+        return "SimpleStmtBlock{" +"\n"+
                 "smallStmts=" + smallStmts +
                 '}';
     }

@@ -15,8 +15,8 @@ public class From_stmt extends Small_stmt {
     public void addImported(Name n) { this.imported.add(n); }
 
     @Override
-    public String toString() {
-        return "From_stmt{" +
+    public String toString(int level) {
+        return "From_stmt{" +"\n"+
                 "module=" + module +
                 ", imported=" + imported +
                 '}';

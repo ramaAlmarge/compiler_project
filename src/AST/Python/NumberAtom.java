@@ -18,7 +18,7 @@ public class NumberAtom extends Atom {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "NumberAtom{" +
                 "value=" + (isNegative ? "-" : "") + number +
                 '}';

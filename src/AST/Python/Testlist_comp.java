@@ -16,7 +16,7 @@ public class Testlist_comp extends Root{
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Testlist_comp{" +
                 "test=" + test  +
                 '}';

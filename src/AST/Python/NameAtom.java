@@ -12,7 +12,7 @@ public class NameAtom extends Atom{
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "NameAtom{" +
                 "name=" + name +
                 '}';

@@ -1,5 +1,8 @@
 
 import AST.Python.*;
+import Visitor.HTMLVisitor;
+import antlrHTML.HTMLLexer;
+import antlrHTML.HTMLParser;
 import antlrPython.*;
 import Visitor.PythonVisitor;
 import org.antlr.v4.runtime.CharStreams;
@@ -8,23 +11,36 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.io.IOException;
-
-import static org.antlr.v4.runtime.CharStreams.fromFileName;
-
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String source = "test/app.py";
-        CharStream charStream = CharStreams.fromFileName(source); // من ANTLR
-        PythonLexer lexer = new PythonLexer(charStream);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        PythonParser parser = new PythonParser(tokens);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("you want Python or HTML");
+        System.out.println("1:Python"+"\n"+"2:HTML");
+        int chose = scanner.nextInt();
+        if (chose == 1) {
+            String source = "test/app.py";
+            CharStream charStream = CharStreams.fromFileName(source);
+            PythonLexer lexer = new PythonLexer(charStream);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            PythonParser parser = new PythonParser(tokens);
+            ParseTree tree = parser.root();
+            PythonVisitor pythonVisitor = new PythonVisitor();
+            Program program = (Program) pythonVisitor.visit(tree);
 
-        ParseTree tree = parser.root(); // هذا ParseTree من ANTLR
+            System.out.println(program);
+        }
+        else if (chose == 2){
+            String source = "test/products.html";
+            CharStream charStream = CharStreams.fromFileName(source);
+            HTMLLexer lexer = new HTMLLexer(charStream);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            HTMLParser parser = new HTMLParser(tokens);
+            ParseTree tree = parser.root();
+            HTMLVisitor htmlVisitor = new HTMLVisitor();
 
-        PythonVisitor pythonVisitor = new PythonVisitor(); // instance
-        Program program = (Program) pythonVisitor.visit(tree); // نمرر الـ instance و الـ tree
 
-        System.out.println(program);
+        }
     }
 }
