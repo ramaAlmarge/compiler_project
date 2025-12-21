@@ -9,7 +9,7 @@ public class SimpleSelector extends Selector {
     private Universal universal;
 
     private final List<HashSelector> hashes = new ArrayList<>();
-    private final List<Class> classes = new ArrayList<>();
+    private final List<ClassSelector> classes = new ArrayList<>();
     private final List<Attrib> attribs = new ArrayList<>();
     private final List<Pseudo> pseudos = new ArrayList<>();
 
@@ -25,7 +25,7 @@ public class SimpleSelector extends Selector {
         hashes.add(hash);
     }
 
-    public void addClass(Class cls) {
+    public void addClass(ClassSelector cls) {
         classes.add(cls);
     }
 

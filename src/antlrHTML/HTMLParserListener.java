@@ -1,4 +1,4 @@
-// Generated from C:/Users/Mutaz13/Documents/CompilerProject/src/HTMLParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Mutaz13/Documents/compilerProjectGithub/compiler_project/src/HTMLParser.g4 by ANTLR 4.13.2
 
 package antlrHTML;
 
@@ -199,6 +199,114 @@ public interface HTMLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPseudoExpr(HTMLParser.PseudoExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code numberPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void enterNumberPseudoExpr(HTMLParser.NumberPseudoExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code numberPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void exitNumberPseudoExpr(HTMLParser.NumberPseudoExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code identPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentPseudoExpr(HTMLParser.IdentPseudoExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code identPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentPseudoExpr(HTMLParser.IdentPseudoExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code plusPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlusPseudoExpr(HTMLParser.PlusPseudoExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code plusPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlusPseudoExpr(HTMLParser.PlusPseudoExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code minusPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void enterMinusPseudoExpr(HTMLParser.MinusPseudoExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code minusPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void exitMinusPseudoExpr(HTMLParser.MinusPseudoExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code starPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void enterStarPseudoExpr(HTMLParser.StarPseudoExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code starPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void exitStarPseudoExpr(HTMLParser.StarPseudoExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code slashPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void enterSlashPseudoExpr(HTMLParser.SlashPseudoExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code slashPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void exitSlashPseudoExpr(HTMLParser.SlashPseudoExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code colonPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void enterColonPseudoExpr(HTMLParser.ColonPseudoExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code colonPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void exitColonPseudoExpr(HTMLParser.ColonPseudoExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code notPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void enterNotPseudoExpr(HTMLParser.NotPseudoExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code notPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void exitNotPseudoExpr(HTMLParser.NotPseudoExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code nestedPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void enterNestedPseudoExpr(HTMLParser.NestedPseudoExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code nestedPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 */
+	void exitNestedPseudoExpr(HTMLParser.NestedPseudoExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code childCombinator}
 	 * labeled alternative in {@link HTMLParser#combinator}.
