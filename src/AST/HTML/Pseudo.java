@@ -1,4 +1,4 @@
 package AST.HTML;
 
-public interface Pseudo {
+public abstract class Pseudo extends Root {
 }

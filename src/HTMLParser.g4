@@ -55,7 +55,22 @@ pseudo : COLON ID ( LPAREN pseudoExpr? RPAREN )? #pseudoClass
        | COLON NOT ( LPAREN pseudoExpr? RPAREN )? #notPseudo
        ;
 
-pseudoExpr : ( NUMBER | ID  | PLUS | MINUS | STAR | SLASH | COLON | NOT | pseudo )+ ;
+pseudoExpr
+    : pseudoExprPart+
+    ;
+
+pseudoExprPart
+    : NUMBER        #numberPseudoExpr
+    | ID            #identPseudoExpr
+    | PLUS          #plusPseudoExpr
+    | MINUS         #minusPseudoExpr
+    | STAR          #starPseudoExpr
+    | SLASH         #slashPseudoExpr
+    | COLON         #colonPseudoExpr
+    | NOT           #notPseudoExpr
+    | pseudo        #nestedPseudoExpr
+    ;
+
 
 combinator : TAG_CLOSE #childCombinator
            | PLUS #adjacentSiblingCombinator

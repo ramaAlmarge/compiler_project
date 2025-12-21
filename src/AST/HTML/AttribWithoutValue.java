@@ -1,6 +1,6 @@
 package AST.HTML;
 
-public class AttribWithoutValue implements  Attrib{
+public class AttribWithoutValue extends   Attrib{
  String id;
 
     public String getId() {

@@ -3,7 +3,7 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AttribWithValue implements Attrib{
+public class AttribWithValue extends Attrib{
 List<String> ID = new ArrayList<>();
 String eq;
 String TILDE_EQUALS;
