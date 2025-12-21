@@ -27,7 +27,7 @@ public class UrlValue extends ValuePart {
     public void addAnd(String and) { this.and.add(and); }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "UrlValue{" +
                 "url='" + url + '\'' +
                 ", id=" + id +

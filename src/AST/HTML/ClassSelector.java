@@ -13,7 +13,7 @@ public class ClassSelector extends Selector {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "." + id;
     }
 }

@@ -38,7 +38,7 @@ public class SimpleSelector extends Selector {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder();
 
         if (typeSelector != null) sb.append(typeSelector);

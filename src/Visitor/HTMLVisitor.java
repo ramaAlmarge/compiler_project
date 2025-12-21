@@ -6,18 +6,19 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class HTMLVisitor  extends HTMLParserBaseVisitor{
     @Override
-    public Root visitRoot(HTMLParser.RootContext ctx) {
-        Root node = new Root();
+    public Program visitRoot(HTMLParser.RootContext ctx) {
+        Program program = new Program(); // node ملموس من Root
 
-        for (int i = 0; i < ctx.getChildCount(); i++) {
-            if (ctx.getChild(i) instanceof HTMLParser.Html_contentContext) {
-                Html_content htmlNode = (Html_content) visit(ctx.getChild(i));
-                node.addHtml_content(htmlNode);
+        if (ctx.html_content() != null) {
+            for (HTMLParser.Html_contentContext hcCtx : ctx.html_content()) {
+                Html_content htmlNode = (Html_content) visitHtml_content(hcCtx);
+                program.addHtmlContent(htmlNode);
             }
         }
 
-        return node;
+        return program;
     }
+
 
 
     @Override
@@ -593,8 +594,35 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     @Override
     public Root visitAtRule(HTMLParser.AtRuleContext ctx) {
         AtRule node = new AtRule();
-        return null;
+
+        for (int i = 0; i < ctx.getChildCount(); i++) {
+            ParseTree child = ctx.getChild(i);
+
+            if (child instanceof HTMLParser.ValuePartContext) {
+                ValuePart vp = (ValuePart) visit(child);
+                node.setValuePart(vp);
+
+            } else if (child instanceof TerminalNode) {
+                TerminalNode t = (TerminalNode) child;
+                int type = t.getSymbol().getType();
+
+                if (type == HTMLParser.URL) {
+                    String urlText = t.getText();
+                    node.setId(urlText); // إذا أردت تخزينه في قائمة id
+                } else if (type == HTMLParser.ID) {
+                    node.setId(t.getText());
+                } else if (type == HTMLParser.NUMBER) {
+                    node.setNumber(Float.parseFloat(t.getText()));
+                }
+            } else if (child instanceof HTMLParser.AtRuleBodyContext) {
+                AtRuleBody body = (AtRuleBody) visit(child);
+                node.setAtRuleBody(body);
+            }
+        }
+
+        return node;
     }
+
 
     @Override
     public AtRuleBody visitAtRuleWithBlock(HTMLParser.AtRuleWithBlockContext ctx) {

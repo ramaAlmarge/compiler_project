@@ -42,7 +42,7 @@ public class AtRule extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("@");
         if (valuePart != null){

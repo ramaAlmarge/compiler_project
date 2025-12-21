@@ -12,7 +12,7 @@ public class Jinja2 extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Jinja2{" +
                 "statement=" + statement +
                 '}';

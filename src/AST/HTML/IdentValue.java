@@ -13,7 +13,7 @@ public class IdentValue extends ValuePart {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return name;
     }
 }

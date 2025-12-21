@@ -30,7 +30,7 @@ public class Html_content extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder("Html_content{");
         if (tag != null) sb.append("tag=").append(tag).append(", ");
         if (style != null) sb.append("style=").append(style).append(", ");

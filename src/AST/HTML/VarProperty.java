@@ -13,7 +13,7 @@ public class VarProperty extends Property {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return name;
     }
 }

@@ -17,7 +17,7 @@ public class TypeSelector extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return id == null ? "" : id;
     }
 }

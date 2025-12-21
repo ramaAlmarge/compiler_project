@@ -2,7 +2,7 @@ package AST.HTML;
 
 public class ColonValue extends ValuePart{
     @Override
-    public String toString() {
+    public String toString(int level) {
         return ":";
     }
 

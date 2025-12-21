@@ -13,7 +13,7 @@ public class AttribWithoutValue extends Attrib {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "[" + id + "]";
     }
 }

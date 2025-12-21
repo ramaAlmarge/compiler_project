@@ -3,7 +3,7 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PseudoExpr {
+public class PseudoExpr extends Root {
 
     private final List<PseudoExprPart> parts = new ArrayList<>();
 
@@ -16,7 +16,7 @@ public class PseudoExpr {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder();
         for (PseudoExprPart part : parts) {
             sb.append(part);

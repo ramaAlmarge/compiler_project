@@ -19,7 +19,7 @@ public class NumberValue extends ValuePart {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         if (unit != null && !unit.isEmpty()) {
             return number + unit;
         } else {

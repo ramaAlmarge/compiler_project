@@ -30,7 +30,7 @@ public class Ident extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder("Ident{");
         if (id != null) sb.append("id=").append(id).append(", ");
         if (eq != null) sb.append("eq=").append(eq).append(", ");

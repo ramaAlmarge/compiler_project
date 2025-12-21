@@ -34,7 +34,7 @@ public class Expr_content extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Expr_content{" +
                 "type=" + type +
                 ", value='" + value + '\'' +

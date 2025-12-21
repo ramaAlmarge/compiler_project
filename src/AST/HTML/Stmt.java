@@ -15,7 +15,7 @@ public class Stmt extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Stmt{" +
                 "ids=" + ids +
                 '}';

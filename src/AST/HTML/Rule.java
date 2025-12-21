@@ -35,7 +35,7 @@ public class Rule extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Rule{" +
                 "selector=" + selector +
                 ", ID=" + ID +

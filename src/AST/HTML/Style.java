@@ -21,7 +21,7 @@ public class Style extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder("Style{");
         if (rule != null) sb.append("rule=").append(rule);
         if (atRule != null) sb.append("atRule=").append(atRule);

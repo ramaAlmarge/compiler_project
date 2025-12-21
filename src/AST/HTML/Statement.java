@@ -21,7 +21,7 @@ public class Statement extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder stringBuilder = new StringBuilder();
         if(stmt != null){
            stringBuilder.append(stmt);

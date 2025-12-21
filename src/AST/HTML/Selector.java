@@ -26,7 +26,7 @@ public class Selector extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(selectors.get(0));

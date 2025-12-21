@@ -8,7 +8,7 @@ public class IdentPseudoExpr extends PseudoExprPart {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return name;
     }
 }

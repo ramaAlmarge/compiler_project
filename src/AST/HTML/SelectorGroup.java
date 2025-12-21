@@ -16,7 +16,7 @@ public class SelectorGroup extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return String.join(", ",
                 selectors.stream().map(Object::toString).toList()
         );

@@ -1,23 +1,15 @@
 package AST.HTML;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class Root {
-    List<Html_content> html_content = new ArrayList<>();
 
-    public List<Html_content> getHtml_content() {
-        return html_content;
+public abstract class Root {
+    protected String indent(int level) {
+        return "  ".repeat(level);
     }
-
-    public void addHtml_content(Html_content hc) {
-        this.html_content.add(hc);
-    }
+    public abstract String toString(int level);
 
     @Override
     public String toString() {
-        return "Root{" +
-                "html_content=" + html_content +
-                '}';
+        return toString(0);
     }
 }

@@ -34,7 +34,7 @@ public class AtRuleWithBlock extends AtRuleBody {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "AtRuleWithBlock{" +
                 "rules=" + rules +
                 ", declarations=" + declarations +

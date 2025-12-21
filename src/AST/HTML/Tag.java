@@ -25,7 +25,7 @@ public class Tag extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Tag{" +
                 "tag_content=" + tag_content +
                 ", id=" + id +

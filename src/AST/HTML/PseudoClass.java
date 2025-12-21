@@ -19,7 +19,7 @@ public class PseudoClass extends Pseudo {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         if (pseudoExpr != null) {
             return ":" + id + "(" + pseudoExpr + ")";
         }

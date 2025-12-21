@@ -39,7 +39,9 @@ public class Main {
             HTMLParser parser = new HTMLParser(tokens);
             ParseTree tree = parser.root();
             HTMLVisitor htmlVisitor = new HTMLVisitor();
+            Program program = (Program) HTMLVisitor.visit(tree);
 
+            System.out.println(program);
 
         }
     }

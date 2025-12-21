@@ -16,7 +16,7 @@ public class Value extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         StringBuilder sb = new StringBuilder();
         for (ValuePart vp : valueParts) {
             sb.append(vp);

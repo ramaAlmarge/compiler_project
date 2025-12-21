@@ -13,7 +13,7 @@ public class NotPseudo extends Pseudo {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return ":not(" + (pseudoExpr != null ? pseudoExpr : "") + ")";
     }
 }
