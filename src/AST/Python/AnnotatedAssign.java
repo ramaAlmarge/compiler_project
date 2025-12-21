@@ -20,7 +20,7 @@ public class AnnotatedAssign extends Assign_part {
     public void addDefaultValue(Test t) { this.defaultValues.add(t); }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "AnnotatedAssign{" +
                 "test=" + test +
                 ", defaultValues=" + defaultValues +

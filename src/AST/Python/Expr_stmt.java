@@ -11,8 +11,8 @@ public class Expr_stmt extends Small_stmt{
     public void setAssignPart(Assign_part assignPart) { this.assignPart = assignPart; }
 
     @Override
-    public String toString() {
-        return "Expr_stmt{" +
+    public String toString(int level) {
+        return "Expr_stmt{" +"\n"+
                 "test=" + test +
                 ", assignPart=" + assignPart +
                 '}';

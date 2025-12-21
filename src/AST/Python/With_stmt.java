@@ -24,7 +24,7 @@ public class With_stmt extends Compound_stmt{
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "With_stmt{" +
                 "items=" + items +
                 ", suite=" + suite +

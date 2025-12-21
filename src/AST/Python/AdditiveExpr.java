@@ -25,7 +25,7 @@ public class AdditiveExpr extends Expr {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "BinaryExpr{" +
                 "left=" + left +
                 ", op=" + op +

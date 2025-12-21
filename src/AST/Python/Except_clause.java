@@ -12,7 +12,7 @@ public class Except_clause extends Root{
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Except_clause{" +
                 "suite=" + suite +
                 '}';

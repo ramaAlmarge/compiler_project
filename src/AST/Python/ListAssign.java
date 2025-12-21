@@ -1,18 +1,14 @@
 package AST.Python;
 
 public class ListAssign extends Assign_part{
-    Small_stmt stmt;
+    private Simple_stmt stmt;
 
-    public Small_stmt getStmt() {
-        return stmt;
-    }
-
-    public void setStmt(Small_stmt stmt) {
+    public void setStmt(Simple_stmt stmt) {
         this.stmt = stmt;
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "ListAssign{" +
                 "stmt=" + stmt +
                 '}';

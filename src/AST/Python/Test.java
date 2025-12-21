@@ -20,7 +20,7 @@ public class Test extends Root {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
 
         return "Test{" +
                 "test=" + test +

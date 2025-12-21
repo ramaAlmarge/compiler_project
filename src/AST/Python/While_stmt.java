@@ -21,7 +21,7 @@ public class While_stmt extends Compound_stmt {
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "While_stmt{" +
                 "condition=" + condition +
                 ", suite=" + suite +

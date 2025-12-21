@@ -42,7 +42,7 @@ public class Func_def extends Compound_stmt{
     }
 
     @Override
-    public String toString() {
+    public String toString(int level) {
         return "Func_def{" +
                 "name=" + name +
                 ", params=" + params +
