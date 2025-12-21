@@ -1,4 +1,4 @@
-// Generated from C:/Users/Mutaz13/Documents/CompilerProject/src/HTMLParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Mutaz13/Documents/compilerProjectGithub/compiler_project/src/HTMLParser.g4 by ANTLR 4.13.2
 
 package antlrHTML;
 
@@ -125,6 +125,69 @@ public interface HTMLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPseudoExpr(HTMLParser.PseudoExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code numberPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNumberPseudoExpr(HTMLParser.NumberPseudoExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code identPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentPseudoExpr(HTMLParser.IdentPseudoExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code plusPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlusPseudoExpr(HTMLParser.PlusPseudoExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code minusPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMinusPseudoExpr(HTMLParser.MinusPseudoExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code starPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStarPseudoExpr(HTMLParser.StarPseudoExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code slashPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSlashPseudoExpr(HTMLParser.SlashPseudoExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code colonPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitColonPseudoExpr(HTMLParser.ColonPseudoExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code notPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotPseudoExpr(HTMLParser.NotPseudoExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code nestedPseudoExpr}
+	 * labeled alternative in {@link HTMLParser#pseudoExprPart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNestedPseudoExpr(HTMLParser.NestedPseudoExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code childCombinator}
 	 * labeled alternative in {@link HTMLParser#combinator}.

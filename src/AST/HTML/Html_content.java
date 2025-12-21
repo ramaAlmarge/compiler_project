@@ -31,11 +31,33 @@ public class Html_content extends Root {
 
     @Override
     public String toString(int level) {
-        StringBuilder sb = new StringBuilder("Html_content{");
-        if (tag != null) sb.append("tag=").append(tag).append(", ");
-        if (style != null) sb.append("style=").append(style).append(", ");
-        if (jinja2 != null) sb.append("jinja2=").append(jinja2);
-        sb.append('}');
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(indent(level)).append("Html_content {\n");
+
+        if (tag != null) {
+            sb.append(indent(level + 1))
+                    .append("tag:\n")
+                    .append(tag.toString(level + 2))
+                    .append("\n");
+        }
+
+        if (style != null) {
+            sb.append(indent(level + 1))
+                    .append("style:\n")
+                    .append(style.toString(level + 2))
+                    .append("\n");
+        }
+
+        if (jinja2 != null) {
+            sb.append(indent(level + 1))
+                    .append("jinja2:\n")
+                    .append(jinja2.toString(level + 2))
+                    .append("\n");
+        }
+
+        sb.append(indent(level)).append("}");
+
         return sb.toString();
     }
 }
