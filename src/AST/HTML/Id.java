@@ -1,6 +1,6 @@
 package AST.HTML;
 
-public class AttribWithoutValue extends Attrib {
+public class Id extends ValuePart {
 
     private String id;
 
@@ -8,12 +8,8 @@ public class AttribWithoutValue extends Attrib {
         this.id = id;
     }
 
-    public String getId() {
-        return id;
-    }
-
     @Override
     public String toString(int level) {
-        return "[" + id + "]";
+        return id == null ? "" : id;
     }
 }

@@ -3,12 +3,13 @@ package AST.HTML;
 public class AttribWithValue extends Attrib {
 
     private String id;
-    private String operator;
     private String value;
 
-    public AttribWithValue(String id, String operator, String value) {
+    public void setId(String id) {
         this.id = id;
-        this.operator = operator;
+    }
+
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -16,9 +17,6 @@ public class AttribWithValue extends Attrib {
         return id;
     }
 
-    public String getOperator() {
-        return operator;
-    }
 
     public String getValue() {
         return value;
@@ -26,6 +24,6 @@ public class AttribWithValue extends Attrib {
 
     @Override
     public String toString(int level) {
-        return "[" + id + operator + value + "]";
+        return "[" + "ID"+ id +"Value"+ value + "]";
     }
 }

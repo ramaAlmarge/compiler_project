@@ -1,43 +1,30 @@
 package AST.HTML;
 
 public class Expr_content extends Root {
+    String id;
+    float number;
+    String double_qoute;
 
-    public enum ExprType {
-        ID,
-        NUMBER,
-        STRING,
-        OR,
-        LPAREN,
-        RPAREN,
-        COLON,
-        LBRACK,
-        RBRACK,
-        PIPE,
-        TILDE,
-        TAG_CLOSE
+
+
+    public void setDouble_qoute(String double_qoute) {
+        this.double_qoute = double_qoute;
     }
 
-    private ExprType type;
-    private String value;
-
-    public Expr_content(ExprType type, String value) {
-        this.type = type;
-        this.value = value;
+    public void setNumber(float number) {
+        this.number = number;
     }
 
-    public ExprType getType() {
-        return type;
+    public void setId(String id) {
+        this.id = id;
     }
-
-    public String getValue() {
-        return value;
-    }
-
     @Override
     public String toString(int level) {
         return "Expr_content{" +
-                "type=" + type +
-                ", value='" + value + '\'' +
+                "id='" + id + '\'' +
+                ", number=" + number +
+                ", double_qoute='" + double_qoute + '\'' +
                 '}';
     }
+
 }
