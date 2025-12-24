@@ -30,14 +30,15 @@ ident
     ;
 ///////////style///////
 style
-    :rule | atRule
+    :rule
+    | atRule
     ;
 
 rule : selector ID? COMMA?ID?ID?COMMA?ID?ID? LBRACE declaration* RBRACE ;
 
 selector : simpleSelector ( combinator simpleSelector )* ( COMMA selector )? ;
 
-simpleSelector : ( typeSelector | universal ) ( HASH | class | attrib | pseudo )* ;
+simpleSelector : ( typeSelector | universal ) ( HASH | class | attrib  )* ;
 
 typeSelector : ID?;
 
@@ -49,28 +50,6 @@ attrib
     : LBRACK ID ( ( EQ | TILDE_EQUALS | PIPE_EQUALS | CARET_EQUALS | DOLLAR_EQUALS | STAR_EQUALS ) ( ID  ) ) RBRACK #attribWithValue
     | LBRACK ID RBRACK #attribWithoutValue
     ;
-
-pseudo : COLON ID ( LPAREN pseudoExpr? RPAREN )? #pseudoClass
-       | DOUBLE_COLON ID ( LPAREN pseudoExpr? RPAREN )? #pseudoElement
-       | COLON NOT ( LPAREN pseudoExpr? RPAREN )? #notPseudo
-       ;
-
-pseudoExpr
-    : pseudoExprPart+
-    ;
-
-pseudoExprPart
-    : NUMBER        #numberPseudoExpr
-    | ID            #identPseudoExpr
-    | PLUS          #plusPseudoExpr
-    | MINUS         #minusPseudoExpr
-    | STAR          #starPseudoExpr
-    | SLASH         #slashPseudoExpr
-    | COLON         #colonPseudoExpr
-    | NOT           #notPseudoExpr
-    | pseudo        #nestedPseudoExpr
-    ;
-
 
 combinator : TAG_CLOSE #childCombinator
            | PLUS #adjacentSiblingCombinator

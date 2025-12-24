@@ -2,9 +2,9 @@ package AST.HTML;
 
 public class VarProperty extends Property {
 
-    private final String name;
+     String name;
 
-    public VarProperty(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

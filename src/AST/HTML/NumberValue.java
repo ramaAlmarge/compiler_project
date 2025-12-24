@@ -2,28 +2,20 @@ package AST.HTML;
 
 public class NumberValue extends ValuePart {
 
-    private final Float number;
-    private final String unit;
+     String number;
 
-    public NumberValue(Float number, String unit) {
+    public void setNumber(String number) {
         this.number = number;
-        this.unit = unit;
     }
 
-    public Float getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public String getUnit() {
-        return unit;
-    }
 
     @Override
     public String toString(int level) {
-        if (unit != null && !unit.isEmpty()) {
-            return number + unit;
-        } else {
             return number.toString();
-        }
     }
+
 }

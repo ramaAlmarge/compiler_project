@@ -2,11 +2,14 @@ package AST.HTML;
 
 public class Declaration extends Root {
 
-    private final Property property;
-    private final Value value;
+     Property property;
+     Value value;
 
-    public Declaration(Property property, Value value) {
+    public void setProperty(Property property) {
         this.property = property;
+    }
+
+    public void setValue(Value value) {
         this.value = value;
     }
 

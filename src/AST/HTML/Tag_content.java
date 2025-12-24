@@ -7,6 +7,7 @@ public class Tag_content extends Root {
     List<Ident> ident = new ArrayList<>();
     String id;
 
+
     public List<Ident> getIdent() {
         return ident;
     }
@@ -27,8 +28,10 @@ public class Tag_content extends Root {
     @Override
     public String toString(int level) {
         return "Tag_content{" +
-                "ident=" + ident +
+
                 ", id='" + id + '\'' +
+                "ident=" + ident +
+
                 '}';
     }
 }

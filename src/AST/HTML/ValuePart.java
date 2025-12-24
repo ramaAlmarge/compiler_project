@@ -1,4 +1,4 @@
 package AST.HTML;
 
-public abstract class ValuePart extends Root {
+public abstract class ValuePart extends Value {
 }

@@ -2,9 +2,9 @@ package AST.HTML;
 
 public class IdentValue extends ValuePart {
 
-    private final String name;
+     String name;
 
-    public IdentValue(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

@@ -2,9 +2,9 @@ package AST.HTML;
 
 public class VarValue extends ValuePart {
 
-    private final String name;
+    String name;
 
-    public VarValue(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

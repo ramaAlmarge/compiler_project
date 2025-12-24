@@ -4,7 +4,10 @@ public class Html_content extends Root {
     Tag tag;
     Style style;
     Jinja2 jinja2;
+    int line;
 
+    public void setLine(int line) { this.line = line; }
+    public int getLine() { return line; }
     public Tag getTag() {
         return tag;
     }
@@ -33,7 +36,7 @@ public class Html_content extends Root {
     public String toString(int level) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(indent(level)).append("Html_content {\n");
+        sb.append(indent(level)).append("Html_content {").append("line =").append(line).append("\n");
 
         if (tag != null) {
             sb.append(indent(level + 1))
