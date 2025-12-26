@@ -21,6 +21,18 @@ public class AnnotatedAssign extends Assign_part {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent(level)).append("AnnotatedAssign: ");
+
+        if (test != null) sb.append(test.toString(0));
+        if (!defaultValues.isEmpty()) {
+            sb.append(" = ");
+            for (int i = 0; i < defaultValues.size(); i++) {
+                sb.append(defaultValues.get(i).toString(0));
+                if (i < defaultValues.size() - 1) sb.append(", ");
+            }
+        }
+        return sb.toString();
     }
+
 }

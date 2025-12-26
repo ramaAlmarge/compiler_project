@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class From_stmt extends Small_stmt {
-
-    private Name module;               // بعد FROM
-    private List<Name> imported = new ArrayList<>();  // بعد IMPORT
+     Name module;
+     List<Name> imported = new ArrayList<>();
 
     public Name getModule() { return module; }
     public void setModule(Name module) { this.module = module; }
@@ -16,6 +15,16 @@ public class From_stmt extends Small_stmt {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent(level)).append("from ").append(module != null ? module.toString(1) : "");
+        if (!imported.isEmpty()) {
+            sb.append(" import ");
+            for (int i = 0; i < imported.size(); i++) {
+                sb.append(imported.get(i).toString(0));
+                if (i < imported.size() - 1) sb.append(", ");
+            }
+        }
+        return sb.toString();
     }
+
 }

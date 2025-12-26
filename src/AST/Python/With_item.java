@@ -22,6 +22,10 @@ public class With_item extends Root {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        if (test != null) sb.append(test.toString(0));
+        if (expr != null) sb.append(" as ").append(expr.toString(0));
+        return sb.toString();
     }
+
 }

@@ -9,6 +9,7 @@ public class ListAssign extends Assign_part{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        return stmt != null ? stmt.toString(level) : "";
     }
+
 }

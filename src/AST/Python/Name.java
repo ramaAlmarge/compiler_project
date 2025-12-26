@@ -31,6 +31,14 @@ public class Name extends Root {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent(level)).append("Name {");
+
+        if (name != null) sb.append(indent(level )).append(name);
+        if (true_name != null) sb.append(indent(level )).append(true_name);
+        if (false_name != null) sb.append(indent(level )).append(false_name);
+        sb.append(indent(level)).append("}");
+        return sb.toString();
     }
+
 }

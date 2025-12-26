@@ -8,6 +8,7 @@ public class Import_stmt extends Small_stmt{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        return indent(level) + "import " + (name != null ? name.toString(0) : "");
     }
+
 }

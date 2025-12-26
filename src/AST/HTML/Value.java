@@ -19,7 +19,10 @@ public class Value extends Root {
     public String toString(int level) {
         StringBuilder sb = new StringBuilder();
         for (ValuePart vp : valueParts) {
-            sb.append(vp);
+            if (vp != null){
+                sb.append(vp.toString(0));
+
+            }
         }
         return sb.toString();
     }

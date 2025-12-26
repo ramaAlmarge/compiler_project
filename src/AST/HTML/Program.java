@@ -20,18 +20,14 @@ public class Program extends Root {
 
         sb.append(indent(level)).append("Program {\n");
 
-        for (int i = 0; i < html.size(); i++) {
-            sb.append(indent(level)).append("html: [\n");
-            sb.append(html.get(i).toString(level + 2));
-
-            if (i < html.size() - 1) {
-                sb.append("\n");
-            }
-            sb.append("\n");
-            sb.append(indent(level)).append("}");
-            sb.append(indent(level )).append("]\n");
+        for (Root node : html) {
+            sb.append(node.toString(level + 1)).append("\n");
         }
+
+        sb.append(indent(level)).append("}");
+
         return sb.toString();
     }
+
 
 }

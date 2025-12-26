@@ -25,6 +25,12 @@ public class Try_stmt extends Compound_stmt{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder(indent(level)).append("try:\n");
+        if (trySuite != null) sb.append(trySuite.toString(level + 1)).append("\n");
+        for (Except_clause exc : exceptClauses) {
+            sb.append(indent(level)).append("except:\n").append(exc.toString(level + 1)).append("\n");
+        }
+        return sb.toString().trim();
     }
+
 }
