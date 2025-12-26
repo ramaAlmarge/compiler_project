@@ -22,6 +22,10 @@ public class While_stmt extends Compound_stmt {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder(indent(level)).append("while ");
+        if (condition != null) sb.append(condition.toString(0));
+        if (suite != null) sb.append(":\n").append(suite.toString(level + 1));
+        return sb.toString();
     }
+
 }

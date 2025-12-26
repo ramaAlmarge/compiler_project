@@ -17,6 +17,15 @@ public class AtomExpr extends Expr {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent(level)).append("AtomExpr: ");
+        if (atom != null) sb.append(atom.toString(0));
+        if (!trailers.isEmpty()) {
+            for (Trailer t : trailers) {
+                sb.append(t.toString(0));
+            }
+        }
+        return sb.toString();
     }
+
 }

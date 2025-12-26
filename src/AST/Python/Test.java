@@ -21,7 +21,16 @@ public class Test extends Root {
 
     @Override
     public String toString(int level) {
-
-        return toTreeString(level);
+        if (comparison != null) return comparison.toString(0);
+        if (!test.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < test.size(); i++) {
+                sb.append(test.get(i).toString(0));
+                if (i < test.size() - 1) sb.append(", ");
+            }
+            return sb.toString();
+        }
+        return "";
     }
+
 }

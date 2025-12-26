@@ -21,6 +21,12 @@ public class Trailer extends Root{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        if (name != null) sb.append(".").append(name.toString(0));
+        for (Test t : test) {
+            sb.append("(").append(t.toString(0)).append(")");
+        }
+        return sb.toString();
     }
+
 }

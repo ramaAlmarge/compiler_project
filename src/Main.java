@@ -18,7 +18,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("you want Python or HTML");
         System.out.println("1:Python"+"\n"+"2:HTML");
-        int chose = scanner.nextInt();
+        int chose = 1;
         if (chose == 1) {
             String source = "test/app.py";
             CharStream charStream = CharStreams.fromFileName(source);

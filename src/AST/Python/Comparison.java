@@ -26,6 +26,14 @@ public class Comparison extends Root{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < expr.size(); i++) {
+            sb.append(expr.get(i).toString(0));
+            if (i < ops.size()) {
+                sb.append(" ").append(ops.get(i)).append(" ");
+            }
+        }
+        return sb.toString();
     }
+
 }

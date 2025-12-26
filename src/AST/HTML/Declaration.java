@@ -23,6 +23,11 @@ public class Declaration extends Root {
 
     @Override
     public String toString(int level) {
-        return property + " : " + value + ";";
+        return indent(level)
+                + property.toString(0)
+                + " : "
+                + value.toString(0)
+                + ";";
     }
+
 }

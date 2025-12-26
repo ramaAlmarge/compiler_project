@@ -19,6 +19,11 @@ public class NumberAtom extends Atom {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        if (number != null) {
+            sb.append(isNegative ? "-" : "").append(number.toString(0));
+        }
+        return sb.toString();
     }
+
 }

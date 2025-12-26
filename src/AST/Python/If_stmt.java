@@ -7,6 +7,9 @@ public class If_stmt extends Compound_stmt{
      String keyword;
      Test condition;
      Suite suite;
+    int line;
+    public void setLine(int line) { this.line = line; }
+    public int getLine() { return line; }
 
     public String getKeyword() {
         return keyword;
@@ -34,6 +37,12 @@ public class If_stmt extends Compound_stmt{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent(level)).append("line").append(line).append("\n");
+        sb.append(indent(level)).append(keyword != null ? keyword : "if").append(" ");
+        if (condition != null) sb.append(condition.toString(0));
+        if (suite != null) sb.append(":\n").append(suite.toString(level + 1));
+        return sb.toString();
     }
+
 }

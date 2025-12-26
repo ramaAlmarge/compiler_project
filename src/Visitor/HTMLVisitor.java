@@ -1,10 +1,11 @@
 package Visitor;
 import AST.HTML.*;
 import antlrHTML.*;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import SympolTable.*;
 
 public class HTMLVisitor  extends HTMLParserBaseVisitor{
+    HTMLSympolTable htmlSympolTable = new HTMLSympolTable();
     @Override
     public Program visitRoot(HTMLParser.RootContext ctx) {
         Program program = new Program();
@@ -50,9 +51,8 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     public Root visitTag_content(HTMLParser.Tag_contentContext ctx) {
         Tag_content node = new Tag_content();
         node.setId(ctx.ID().getText());
-        for (HTMLParser.IdentContext identCtx : ctx.ident()) {
-            Ident identNode = (Ident) visit(identCtx);
-            node.addIdent(identNode);
+        for (HTMLParser.IdentContext iCtx : ctx.ident()) {
+            node.addIdent((Ident)visit(iCtx));
         }
         return node;
     }
@@ -86,6 +86,7 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
 
     @Override
     public Root visitRule(HTMLParser.RuleContext ctx) {
+        htmlSympolTable.enter("css-rule");
         Rule node = new Rule();
         if (ctx.selector() != null) {
             node.setSelector((Selector) visit(ctx.selector()));
@@ -93,13 +94,12 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
         for (TerminalNode idNode : ctx.ID()) {
             node.addID(idNode.getText());
         }
-        for (HTMLParser.DeclarationContext declCtx : ctx.declaration()) {
-            Declaration decl = (Declaration) visitDeclaration(declCtx);
-            node.addDeclaration(decl);
+        for (HTMLParser.DeclarationContext dCtx : ctx.declaration()) {
+            node.addDeclaration((Declaration) visit(dCtx));
         }
+        htmlSympolTable.exit();
         return node;
     }
-
 
     @Override
     public Root visitSelector(HTMLParser.SelectorContext ctx) {
@@ -243,8 +243,7 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     public ValuePart visitParenValue(HTMLParser.ParenValueContext ctx) {
         ParenValue node = new ParenValue();
         if (ctx.value() != null) {
-            Value val = (Value) visitValue(ctx.value());
-            node.setValue(val);
+            node.setValue((Value)visit(ctx.value()));
         }
         return node;
     }
@@ -312,6 +311,7 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
             node.setExpr((Expr) visit(ctx.expr()));
             return node;
         }
+        htmlSympolTable.exit();
         return null;
     }
 
@@ -321,8 +321,19 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
         for (TerminalNode idNode : ctx.ID()) {
             node.addId(idNode.getText());
         }
+        String text = ctx.getText();
+        if (text.contains("for")) {
+            String loopVar = ctx.ID(0).getText();
+            htmlSympolTable.enter("jinja-for");
+            htmlSympolTable.define(loopVar, "loop-var");
+        }
+        if (text.contains("if")) {
+            htmlSympolTable.enter("jinja-if");
+        }
+
         return node;
     }
+
 
 
     @Override

@@ -16,6 +16,7 @@ public class StringAtom extends Atom{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        return String.join(" ", string);
     }
+
 }

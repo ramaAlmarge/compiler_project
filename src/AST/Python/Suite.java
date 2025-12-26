@@ -16,6 +16,12 @@ public class Suite extends Root {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+
+        for (Stmt stmt : stmts) {
+            sb.append(stmt.toString(level));
+        }
+        return sb.toString();
     }
+
 }

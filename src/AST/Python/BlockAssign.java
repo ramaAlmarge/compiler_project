@@ -16,6 +16,12 @@ public class BlockAssign extends Assign_part{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent(level)).append("BlockAssign:\n");
+        for (Small_stmt stmt : small_stmt) {
+            sb.append(stmt.toString(level + 1)).append("\n");
+        }
+        return sb.toString().trim();
     }
+
 }

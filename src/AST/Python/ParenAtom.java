@@ -13,6 +13,7 @@ public class ParenAtom extends Atom {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        return testlist_comp != null ? "(" + testlist_comp.toString(0) + ")" : "()";
     }
+
 }

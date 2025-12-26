@@ -1,10 +1,13 @@
 package AST.Python;
 
+import SympolTable.PythonSympolTable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Program extends Root {
     List<Root> stmts = new ArrayList<>();
+    PythonSympolTable symTable;
 
     public List<Root> getStmts() {
         return stmts;
@@ -17,20 +20,14 @@ public class Program extends Root {
     @Override
     public String toString(int level) {
         StringBuilder sb = new StringBuilder();
-
         sb.append(indent(level)).append("Program {\n");
 
-        for (int i = 0; i < stmts.size(); i++) {
-            sb.append(indent(level)).append("stmts: [\n");
-            sb.append(stmts.get(i).toString(level + 2));
-
-            if (i < stmts.size() - 1) {
-                sb.append("\n");
-            }
+        for (Root node : stmts) {
+            sb.append(indent(level + 1));
+            sb.append(node.toString(0));
             sb.append("\n");
-            sb.append(indent(level)).append("}");
-            sb.append(indent(level )).append("]\n");
         }
+        sb.append(indent(level)).append("}");
         return sb.toString();
     }
 

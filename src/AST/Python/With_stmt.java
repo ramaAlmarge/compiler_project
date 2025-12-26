@@ -25,6 +25,13 @@ public class With_stmt extends Compound_stmt{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder(indent(level)).append("with ");
+        for (int i = 0; i < items.size(); i++) {
+            sb.append(items.get(i).toString(0));
+            if (i < items.size() - 1) sb.append(", ");
+        }
+        if (suite != null) sb.append(":\n").append(suite.toString(level + 1));
+        return sb.toString();
     }
+
 }

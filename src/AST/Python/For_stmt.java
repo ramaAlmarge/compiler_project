@@ -34,6 +34,16 @@ public class For_stmt extends Compound_stmt {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent(level)).append("For_stmt: for ");
+        if (targets != null) sb.append(targets.toString(0));
+        sb.append(" in ");
+        for (int i = 0; i < iterables.size(); i++) {
+            sb.append(iterables.get(i).toString(0));
+            if (i < iterables.size() - 1) sb.append(", ");
+        }
+        if (suite != null) sb.append("\n").append(suite.toString(level + 1));
+        return sb.toString();
     }
+
 }

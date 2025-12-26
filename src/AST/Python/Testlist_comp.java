@@ -17,6 +17,12 @@ public class Testlist_comp extends Root{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < test.size(); i++) {
+            sb.append(test.get(i).toString(0));
+            if (i < test.size() - 1) sb.append(", ");
+        }
+        return sb.toString();
     }
+
 }

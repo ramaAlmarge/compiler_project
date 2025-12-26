@@ -8,6 +8,9 @@ public class Func_def extends Compound_stmt{
      List<Name> params = new ArrayList<>();
      Test returnType;
      Suite suite;
+    int line;
+    public void setLine(int line) { this.line = line; }
+    public int getLine() { return line; }
 
     public Name getName() {
         return name;
@@ -43,6 +46,18 @@ public class Func_def extends Compound_stmt{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        sb.append("line").append(line).append("\n");
+        sb.append(indent(level+1)).append("def ").append(name != null ? name.toString(0) : "");
+        sb.append("(");
+        for (int i = 0; i < params.size(); i++) {
+            sb.append(params.get(i).toString(0));
+            if (i < params.size() - 1) sb.append(", ");
+        }
+        sb.append(")");
+        if (returnType != null) sb.append(" -> ").append(returnType.toString(0));
+        if (suite != null) sb.append(":\n").append(suite.toString(level + 2));
+        return sb.toString();
     }
+
 }

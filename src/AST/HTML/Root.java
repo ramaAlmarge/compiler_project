@@ -1,7 +1,5 @@
 package AST.HTML;
 
-
-
 public abstract class Root {
     protected String indent(int level) {
         return "  ".repeat(level);

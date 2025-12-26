@@ -13,6 +13,7 @@ public class NameAtom extends Atom{
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        return name != null ? name.toString(0) : "";
     }
+
 }

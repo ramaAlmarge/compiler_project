@@ -24,6 +24,13 @@ public class AdditiveExpr extends Expr {
 
     @Override
     public String toString(int level) {
-        return toTreeString(level);
+        StringBuilder sb = new StringBuilder();
+        sb.append(indent(level)).append("AdditiveExpr: ");
+
+        if (left != null) sb.append(left.toString(0));
+        if (op != null) sb.append(" ").append(op);
+        if (right != null) sb.append(" ").append(right.toString(0));
+
+        return sb.toString();
     }
 }
