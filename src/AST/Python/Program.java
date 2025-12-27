@@ -1,13 +1,13 @@
 package AST.Python;
 
-import SympolTable.PythonSympolTable;
+//import SympolTable.PythonSympolTable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Program extends Root {
     List<Root> stmts = new ArrayList<>();
-    PythonSympolTable symTable;
+//    PythonSympolTable symTable;
 
     public List<Root> getStmts() {
         return stmts;

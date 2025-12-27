@@ -2,10 +2,10 @@ package Visitor;
 import AST.HTML.*;
 import antlrHTML.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import SympolTable.*;
+//import SympolTable.*;
 
 public class HTMLVisitor  extends HTMLParserBaseVisitor{
-    HTMLSympolTable htmlSympolTable = new HTMLSympolTable();
+//    HTMLSympolTable htmlSympolTable = new HTMLSympolTable();
     @Override
     public Program visitRoot(HTMLParser.RootContext ctx) {
         Program program = new Program();
@@ -86,7 +86,7 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
 
     @Override
     public Root visitRule(HTMLParser.RuleContext ctx) {
-        htmlSympolTable.enter("css-rule");
+//        htmlSympolTable.enter("css-rule");
         Rule node = new Rule();
         if (ctx.selector() != null) {
             node.setSelector((Selector) visit(ctx.selector()));
@@ -97,7 +97,7 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
         for (HTMLParser.DeclarationContext dCtx : ctx.declaration()) {
             node.addDeclaration((Declaration) visit(dCtx));
         }
-        htmlSympolTable.exit();
+//        htmlSympolTable.exit();
         return node;
     }
 
@@ -311,7 +311,7 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
             node.setExpr((Expr) visit(ctx.expr()));
             return node;
         }
-        htmlSympolTable.exit();
+//        htmlSympolTable.exit();
         return null;
     }
 
@@ -324,12 +324,12 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
         String text = ctx.getText();
         if (text.contains("for")) {
             String loopVar = ctx.ID(0).getText();
-            htmlSympolTable.enter("jinja-for");
-            htmlSympolTable.define(loopVar, "loop-var");
+//            htmlSympolTable.enter("jinja-for");
+//            htmlSympolTable.define(loopVar, "loop-var");
         }
-        if (text.contains("if")) {
-            htmlSympolTable.enter("jinja-if");
-        }
+//        if (text.contains("if")) {
+//            htmlSympolTable.enter("jinja-if");
+//        }
 
         return node;
     }
@@ -362,5 +362,10 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
             return node;
         }
         return null;
+    }
+
+    @Override
+    public Object visitUniversal(HTMLParser.UniversalContext ctx) {
+        return super.visitUniversal(ctx);
     }
 }

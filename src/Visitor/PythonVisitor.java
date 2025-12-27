@@ -3,13 +3,13 @@
     import AST.Python.*;
     import AST.Python.Number;
     import antlrPython.*;
-    import SympolTable.PythonSympolTable;
+//    import SympolTable.PythonSympolTable;
 
     public class PythonVisitor extends PythonParserBaseVisitor {
-        PythonSympolTable pythonSympolTable = new PythonSympolTable();
-        public PythonSympolTable getSymbolTable() {
-            return pythonSympolTable;
-        }
+//        PythonSympolTable pythonSympolTable = new PythonSympolTable();
+//        public PythonSympolTable getSymbolTable() {
+//            return pythonSympolTable;
+//        }
         @Override
         public Program visitRoot(PythonParser.RootContext ctx) {
             Program program = new Program();
@@ -138,16 +138,16 @@
             }
             node.setSuite((Suite) visit(ctx.suite()));
             String funcName = ctx.name(0).getText();
-            if (!pythonSympolTable.contains(funcName)) {
-                pythonSympolTable.addFunction(funcName);
-            }
-
-            for (int i = 1; i < ctx.name().size(); i++) {
-                String paramName = ctx.name(i).getText();
-                if (!pythonSympolTable.contains(paramName)) {
-                    pythonSympolTable.addVariable(paramName);
-                }
-            }
+//            if (!pythonSympolTable.contains(funcName)) {
+//                pythonSympolTable.addFunction(funcName);
+//            }
+//
+//            for (int i = 1; i < ctx.name().size(); i++) {
+//                String paramName = ctx.name(i).getText();
+//                if (!pythonSympolTable.contains(paramName)) {
+//                    pythonSympolTable.addVariable(paramName);
+//                }
+//            }
             node.setLine(ctx.getStart().getLine());
             return node;
         }
@@ -213,12 +213,12 @@
             if (ctx.assign_part() != null) {
                 node.setAssignPart((Assign_part) visit(ctx.assign_part()));
             }
-            if (ctx.test() != null && ctx.assign_part() != null) {
-                String varName = ctx.test().getText();
-                if (!pythonSympolTable.contains(varName)) {
-                    pythonSympolTable.addVariable(varName);
-                }
-            }
+//            if (ctx.test() != null && ctx.assign_part() != null) {
+//                String varName = ctx.test().getText();
+//                if (!pythonSympolTable.contains(varName)) {
+//                    pythonSympolTable.addVariable(varName);
+//                }
+//            }
 
             return node;
         }

@@ -20,11 +20,12 @@ public class SimpleStmtLine extends Simple_stmt {
     @Override
     public String toString(int level ) {
         StringBuilder sb = new StringBuilder();
-        sb.append("line").append(line).append("\n");
-        for (Small_stmt stmt : smallStmts) {
-            sb.append(stmt.toString((level + 1))).append("\n");
+        sb.append(indent(level)).append("line").append(line).append("\n");
+        for (int i = 0; i < smallStmts.size(); i++) {
+            sb.append(smallStmts.get(i).toString(level + 1));
+            if (i < smallStmts.size() - 1) sb.append("\n");
         }
-        return sb.toString().trim();
+        return sb.toString();
     }
 
 }

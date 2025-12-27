@@ -22,7 +22,7 @@ public class AnnotatedAssign extends Assign_part {
     @Override
     public String toString(int level) {
         StringBuilder sb = new StringBuilder();
-        sb.append(indent(level)).append("AnnotatedAssign: ");
+        sb.append("AnnotatedAssign: ");
 
         if (test != null) sb.append(test.toString(0));
         if (!defaultValues.isEmpty()) {

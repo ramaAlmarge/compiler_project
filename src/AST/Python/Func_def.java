@@ -47,7 +47,7 @@ public class Func_def extends Compound_stmt{
     @Override
     public String toString(int level) {
         StringBuilder sb = new StringBuilder();
-        sb.append("line").append(line).append("\n");
+        sb.append(indent(level)).append("line").append(line).append("\n");
         sb.append(indent(level+1)).append("def ").append(name != null ? name.toString(0) : "");
         sb.append("(");
         for (int i = 0; i < params.size(); i++) {

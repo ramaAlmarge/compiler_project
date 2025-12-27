@@ -13,9 +13,12 @@ public class Expr_stmt extends Small_stmt{
     @Override
     public String toString(int level) {
         StringBuilder sb = new StringBuilder();
-        sb.append(indent(level));
+        sb.append(indent(level + 1));
         if (test != null) sb.append(test.toString(0));
-        if (assignPart != null) sb.append(" = ").append(assignPart.toString(0));
+        if (assignPart != null){
+            sb.append(" = ").append(assignPart.toString(0));
+        }
+
         return sb.toString();
     }
 
