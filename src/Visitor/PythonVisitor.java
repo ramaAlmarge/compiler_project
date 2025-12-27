@@ -3,13 +3,13 @@
     import AST.Python.*;
     import AST.Python.Number;
     import antlrPython.*;
-//    import SympolTable.PythonSympolTable;
+import SympolTable.PythonSympolTable;
 
-    public class PythonVisitor extends PythonParserBaseVisitor {
-//        PythonSympolTable pythonSympolTable = new PythonSympolTable();
-//        public PythonSympolTable getSymbolTable() {
-//            return pythonSympolTable;
-//        }
+    public class PythonVisitor extends PythonParserBaseVisitor<Object> {
+        PythonSympolTable pythonSympolTable = new PythonSympolTable();
+        public PythonSympolTable getSymbolTable() {
+            return pythonSympolTable;
+        }
         @Override
         public Program visitRoot(PythonParser.RootContext ctx) {
             Program program = new Program();
@@ -70,6 +70,8 @@
         @Override
         public Compound_stmt visitIf_stmt(PythonParser.If_stmtContext ctx) {
             If_stmt node = new If_stmt();
+            pythonSympolTable.enter("if_block");
+
             if (ctx.IF() != null) {
                 node.setKeyword("IF");
             } else if (ctx.ELIF() != null) {
@@ -83,72 +85,101 @@
             node.setSuite((Suite) visit(ctx.suite())
             );
             node.setLine(ctx.getStart().getLine());
+
+            pythonSympolTable.exit();
             return node;
         }
 
         @Override
         public Compound_stmt visitWhile_stmt(PythonParser.While_stmtContext ctx) {
-
             While_stmt node = new While_stmt();
+            pythonSympolTable.enter("while_loop");
+
             node.setCondition((Test) visit(ctx.test()));
             node.setSuite((Suite) visit(ctx.suite()));
+
+            pythonSympolTable.exit();
             return node;
         }
 
         @Override
         public Compound_stmt visitFor_stmt(PythonParser.For_stmtContext ctx) {
             For_stmt node = new For_stmt();
+            pythonSympolTable.enter("for_loop");
+
             node.setTargets((Exprlist) visit(ctx.exprlist()));
             for (PythonParser.TestContext tctx : ctx.test()) {
                 node.addIterable((Test) visit(tctx));
             }
             node.setSuite((Suite) visit(ctx.suite()));
+
+            // Define variables in the for loop target
+            if (ctx.exprlist() != null) {
+                // Assuming exprlist contains names that are variables
+                // This might need more sophisticated handling for complex exprlists
+                for (PythonParser.ExprContext exprCtx : ctx.exprlist().expr()) {
+                    if (exprCtx instanceof PythonParser.AtomExprContext) {
+                        PythonParser.AtomContext atomCtx = ((PythonParser.AtomExprContext) exprCtx).atom();
+                        if (atomCtx instanceof PythonParser.NameAtomContext) {
+                            String varName = ((PythonParser.NameAtomContext) atomCtx).name().getText();
+                            pythonSympolTable.define(varName, "variable", varName, ctx.getStart().getLine());
+                        }
+                    }
+                }
+            }
+
+            pythonSympolTable.exit();
             return node;
         }
 
         @Override
         public Compound_stmt visitTry_stmt(PythonParser.Try_stmtContext ctx) {
             Try_stmt node = new Try_stmt();
+            pythonSympolTable.enter("try_block");
+
             node.setTrySuite((Suite) visit(ctx.suite()));
             for (PythonParser.Except_clauseContext ectx : ctx.except_clause()) {
                 node.addExceptClause((Except_clause) visit(ectx));
             }
+
+            pythonSympolTable.exit();
             return node;
         }
 
         @Override
         public Compound_stmt visitWith_stmt(PythonParser.With_stmtContext ctx) {
             With_stmt node = new With_stmt();
+            pythonSympolTable.enter("with_block");
+
             for (PythonParser.With_itemContext wctx : ctx.with_item()) {
                 node.addItem((With_item) visit(wctx));
             }
             node.setSuite((Suite) visit(ctx.suite()));
+
+            pythonSympolTable.exit();
             return node;
         }
 
         @Override
         public Compound_stmt visitFunc_def(PythonParser.Func_defContext ctx) {
             Func_def node = new Func_def();
+            String funcName = ctx.name(0).getText();
+            pythonSympolTable.define(funcName, "function", "function_definition", ctx.getStart().getLine());
+            pythonSympolTable.enter(funcName);
+
             node.setName((Name) visit(ctx.name(0)));
             for (int i = 1; i < ctx.name().size(); i++) {
+                String paramName = ctx.name(i).getText();
+                pythonSympolTable.define(paramName, "parameter", paramName, ctx.getStart().getLine());
                 node.addParam((Name) visit(ctx.name(i)));
             }
             if (ctx.ARROW() != null) {
                 node.setReturnType((Test) visit(ctx.test()));
             }
             node.setSuite((Suite) visit(ctx.suite()));
-            String funcName = ctx.name(0).getText();
-//            if (!pythonSympolTable.contains(funcName)) {
-//                pythonSympolTable.addFunction(funcName);
-//            }
-//
-//            for (int i = 1; i < ctx.name().size(); i++) {
-//                String paramName = ctx.name(i).getText();
-//                if (!pythonSympolTable.contains(paramName)) {
-//                    pythonSympolTable.addVariable(paramName);
-//                }
-//            }
             node.setLine(ctx.getStart().getLine());
+
+            pythonSympolTable.exit();
             return node;
         }
 
@@ -212,14 +243,21 @@
             node.setTest((Test) visit(ctx.test()));
             if (ctx.assign_part() != null) {
                 node.setAssignPart((Assign_part) visit(ctx.assign_part()));
-            }
-//            if (ctx.test() != null && ctx.assign_part() != null) {
-//                String varName = ctx.test().getText();
-//                if (!pythonSympolTable.contains(varName)) {
-//                    pythonSympolTable.addVariable(varName);
-//                }
-//            }
 
+                String varName = ctx.test().getText();
+                String varValue = ctx.assign_part().getText();
+
+                // Remove leading colon or equals sign and whitespace
+                if (varValue.startsWith(":") || varValue.startsWith("=")) {
+                    varValue = varValue.substring(1).trim();
+                }
+                // Handle cases like ": type = value"
+                if (varValue.contains("=")) {
+                    varValue = varValue.substring(varValue.indexOf("=") + 1).trim();
+                }
+
+                pythonSympolTable.define(varName, "variable", varValue, ctx.getStart().getLine());
+            }
             return node;
         }
 
@@ -323,7 +361,12 @@
                 else if (ctx.IS(i-1) != null) {
                     op = (ctx.NOT(i-1) != null) ? Comparison.CompOp.IS_NOT : Comparison.CompOp.IS;
                 }
-                else if (ctx.EQ(i-1) != null) op = Comparison.CompOp.EQ;
+                else if (ctx.EQ(i-1) != null) {
+                    op = Comparison.CompOp.EQ;
+                    String varName = ctx.expr(i-1).getText();
+                    String varValue = ctx.expr(i).getText();
+                    pythonSympolTable.define(varName, "variable", varValue, ctx.getStart().getLine());
+                }
                 node.addOp(op);
                 node.addExpr((Expr) visit(ctx.expr(i)));
             }

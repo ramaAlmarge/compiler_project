@@ -5,13 +5,19 @@ import antlrHTML.HTMLLexer;
 import antlrHTML.HTMLParser;
 import antlrPython.*;
 import Visitor.PythonVisitor;
+import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.CharStream;
+
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -30,6 +36,15 @@ public class Main {
             Program program = (Program) pythonVisitor.visit(tree);
 
             System.out.println(program);
+            pythonVisitor.getSymbolTable().printTable();
+
+            // Generate and save HTML symbol table
+            String htmlSymbolTable = pythonVisitor.getSymbolTable().getSymbolTableAsHtml();
+            try (PrintWriter out = new PrintWriter("python_symbol_table.html")) {
+                out.println(htmlSymbolTable);
+            }
+            System.out.println("Python symbol table generated to python_symbol_table.html");
+
         }
         else if (chose == 2){
             String source = "test/products.html";
@@ -42,6 +57,14 @@ public class Main {
             AST.HTML.Program program = (AST.HTML.Program) htmlVisitor.visit(tree);
 
             System.out.println(program);
+            htmlVisitor.htmlSympolTable.printTable();
+
+            // Generate and save HTML symbol table
+            String htmlSymbolTable = htmlVisitor.htmlSympolTable.getSymbolTableAsHtml();
+            try (PrintWriter out = new PrintWriter("html_symbol_table.html")) {
+                out.println(htmlSymbolTable);
+            }
+            System.out.println("HTML symbol table generated to html_symbol_table.html");
 
 
         }

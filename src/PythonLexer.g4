@@ -1,5 +1,5 @@
 lexer grammar PythonLexer;
-@header{
+@header {
 package antlrPython;
 import java.util.*;
 

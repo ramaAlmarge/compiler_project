@@ -2,15 +2,15 @@ package Visitor;
 import AST.HTML.*;
 import antlrHTML.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
-//import SympolTable.*;
+import SympolTable.*;
 
-public class HTMLVisitor  extends HTMLParserBaseVisitor{
-//    HTMLSympolTable htmlSympolTable = new HTMLSympolTable();
+public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
+    public HTMLSympolTable htmlSympolTable = new HTMLSympolTable();
     @Override
     public Program visitRoot(HTMLParser.RootContext ctx) {
         Program program = new Program();
             for (HTMLParser.Html_contentContext hcCtx : ctx.html_content()) {
-                program.addHtmlContent((Root) visit(hcCtx));
+                program.addHtmlContent((Root) visitHtml_content(hcCtx));
             }
         return program;
     }
@@ -39,7 +39,9 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
 
         if (ctx.ID() != null) {
             for (var idToken : ctx.ID()) {
-                node.addId(idToken.getText());
+                String idName = idToken.getText();
+                htmlSympolTable.define(idName, "html-id", idName, ctx.getStart().getLine());
+                node.addId(idName);
             }
         }
 
@@ -64,7 +66,7 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
         if (ctx.ID() != null){
             node.setId(ctx.ID().getText());
         }
-        else if (ctx.DOUBLE_QUOTE_STRING() != null){
+        else if (ctx.DOUBLE_QUOTE_STRING() != null) {
             node.setDoubleQuote(ctx.DOUBLE_QUOTE_STRING().getText());
         }
         return node;
@@ -86,18 +88,20 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
 
     @Override
     public Root visitRule(HTMLParser.RuleContext ctx) {
-//        htmlSympolTable.enter("css-rule");
+        htmlSympolTable.enter("css-rule");
         Rule node = new Rule();
         if (ctx.selector() != null) {
             node.setSelector((Selector) visit(ctx.selector()));
         }
         for (TerminalNode idNode : ctx.ID()) {
-            node.addID(idNode.getText());
+            String idName = idNode.getText();
+            htmlSympolTable.define(idName, "css-id", idName, ctx.getStart().getLine());
+            node.addID(idName);
         }
         for (HTMLParser.DeclarationContext dCtx : ctx.declaration()) {
             node.addDeclaration((Declaration) visit(dCtx));
         }
-//        htmlSympolTable.exit();
+        htmlSympolTable.exit();
         return node;
     }
 
@@ -151,7 +155,9 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     @Override
     public Root visitClass(HTMLParser.ClassContext ctx) {
         Id node = new Id();
-        node.setId(ctx.ID().getText());
+        String className = ctx.ID().getText();
+        htmlSympolTable.define(className, "css-class", className, ctx.getStart().getLine());
+        node.setId(className);
         return node;
     }
 
@@ -173,8 +179,17 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     @Override
     public Declaration visitDeclaration(HTMLParser.DeclarationContext ctx) {
         Declaration node = new Declaration();
-        node.setProperty((Property) visit(ctx.property()));
-        node.setValue((Value) visit(ctx.value()));
+        Property prop = (Property) visit(ctx.property());
+        Value val = (Value) visit(ctx.value());
+        node.setProperty(prop);
+        node.setValue(val);
+
+        if (ctx.property() instanceof HTMLParser.VarPropertyContext) {
+            String varName = ((HTMLParser.VarPropertyContext) ctx.property()).VAR().getText();
+            String varValue = ctx.value().getText();
+            htmlSympolTable.define(varName, "css-variable", varValue, ctx.getStart().getLine());
+        }
+
         return node;
     }
 
@@ -189,7 +204,8 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
     @Override
     public Property visitVarProperty(HTMLParser.VarPropertyContext ctx) {
         VarProperty node = new VarProperty();
-        node.setName(ctx.VAR().getText());
+        String varName = ctx.VAR().getText();
+        node.setName(varName);
         return node;
     }
 
@@ -311,26 +327,44 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
             node.setExpr((Expr) visit(ctx.expr()));
             return node;
         }
-//        htmlSympolTable.exit();
         return null;
     }
 
     @Override
     public Root visitStmt(HTMLParser.StmtContext ctx) {
         Stmt node = new Stmt();
+        java.util.List<String> ids = new java.util.ArrayList<>();
         for (TerminalNode idNode : ctx.ID()) {
-            node.addId(idNode.getText());
+            String id = idNode.getText();
+            node.addId(id);
+            ids.add(id);
         }
-        String text = ctx.getText();
-        if (text.contains("for")) {
-            String loopVar = ctx.ID(0).getText();
-//            htmlSympolTable.enter("jinja-for");
-//            htmlSympolTable.define(loopVar, "loop-var");
+        
+        if (!ids.isEmpty()) {
+            String firstId = ids.get(0);
+            if (firstId.equals("if") || firstId.equals("elif")) {
+                htmlSympolTable.enter("jinja-" + firstId);
+                for (int i = 1; i < ids.size(); i++) {
+                    htmlSympolTable.define(ids.get(i), "jinja-var", ids.get(i), ctx.getStart().getLine());
+                }
+            } else if (firstId.equals("else")) {
+                // Check if we are in a jinja scope before exiting
+                htmlSympolTable.exit();
+                htmlSympolTable.enter("jinja-else");
+            } else if (firstId.equals("endif")) {
+                htmlSympolTable.exit();
+            } else if (firstId.equals("for")) {
+                htmlSympolTable.enter("jinja-for");
+                if (ids.size() > 1) {
+                    htmlSympolTable.define(ids.get(1), "loop-var", ids.get(1), ctx.getStart().getLine());
+                    if (ids.size() > 3 && ids.get(2).equals("in")) {
+                        htmlSympolTable.define(ids.get(3), "iterable", ids.get(3), ctx.getStart().getLine());
+                    }
+                }
+            } else if (firstId.equals("endfor")) {
+                htmlSympolTable.exit();
+            }
         }
-//        if (text.contains("if")) {
-//            htmlSympolTable.enter("jinja-if");
-//        }
-
         return node;
     }
 
@@ -342,6 +376,10 @@ public class HTMLVisitor  extends HTMLParserBaseVisitor{
         for (HTMLParser.Expr_contentContext contentCtx : ctx.expr_content()) {
             Expr_content content = (Expr_content) visitExpr_content(contentCtx);
             node.addExpr_content(content);
+            if (contentCtx.ID() != null) {
+                String varName = contentCtx.ID().getText();
+                htmlSympolTable.define(varName, "jinja-var", varName, ctx.getStart().getLine());
+            }
         }
         return node;
     }
