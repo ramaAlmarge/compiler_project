@@ -40,6 +40,7 @@ public class Main {
 
             // Generate and save HTML symbol table
             String htmlSymbolTable = pythonVisitor.getSymbolTable().getSymbolTableAsHtml();
+
             try (PrintWriter out = new PrintWriter("python_symbol_table.html")) {
                 out.println(htmlSymbolTable);
             }
