@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Program extends Root {
     List<Root> stmts = new ArrayList<>();
-//    PythonSympolTable symTable;
+
 
     public List<Root> getStmts() {
         return stmts;

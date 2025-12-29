@@ -1,4 +1,4 @@
-package SympolTable;
+package SymbolTable;
 
 public class SymbolInfo {
     private String type;

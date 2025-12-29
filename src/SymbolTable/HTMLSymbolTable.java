@@ -1,9 +1,9 @@
-package SympolTable;
+package SymbolTable;
+
 
 import java.util.*;
-import SympolTable.SymbolInfo;
 
-public class PythonSympolTable {
+public class HTMLSymbolTable {
 
     static class Scope {
         Scope parent;
@@ -52,7 +52,7 @@ public class PythonSympolTable {
     }
 
     public void printTable() {
-        System.out.println("\nPython Symbol Table:");
+        System.out.println("\nHTML Symbol Table:");
         printScope(root, 0);
     }
 
@@ -90,7 +90,7 @@ public class PythonSympolTable {
 
     public String getSymbolTableAsHtml() {
         StringBuilder htmlBuilder = new StringBuilder();
-        htmlBuilder.append("<html><head><title>Python Symbol Table</title>");
+        htmlBuilder.append("<html><head><title>HTML Symbol Table</title>");
         htmlBuilder.append("<style>");
         htmlBuilder.append("body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; margin: 20px; }");
         htmlBuilder.append("h1 { color: #2c3e50; text-align: center; }");
@@ -102,7 +102,7 @@ public class PythonSympolTable {
         htmlBuilder.append("tr:hover { background-color: #f1f1f1; }");
         htmlBuilder.append("</style>");
         htmlBuilder.append("</head><body>");
-        htmlBuilder.append("<h1>Python Symbol Table</h1>");
+        htmlBuilder.append("<h1>HTML Symbol Table</h1>");
         htmlBuilder.append(getScopeAsHtml(root, 0));
         htmlBuilder.append("</body></html>");
         return htmlBuilder.toString();

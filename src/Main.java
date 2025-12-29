@@ -9,14 +9,12 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 
 import java.io.IOException;
 import java.util.Scanner;
 
-import java.io.FileWriter;
 import java.io.PrintWriter;
 
 public class Main {
@@ -58,10 +56,10 @@ public class Main {
             AST.HTML.Program program = (AST.HTML.Program) htmlVisitor.visit(tree);
 
             System.out.println(program);
-            htmlVisitor.htmlSympolTable.printTable();
+            htmlVisitor.htmlSymbolTable.printTable();
 
             // Generate and save HTML symbol table
-            String htmlSymbolTable = htmlVisitor.htmlSympolTable.getSymbolTableAsHtml();
+            String htmlSymbolTable = htmlVisitor.htmlSymbolTable.getSymbolTableAsHtml();
             try (PrintWriter out = new PrintWriter("html_symbol_table.html")) {
                 out.println(htmlSymbolTable);
             }

@@ -14,7 +14,7 @@ public abstract class Root {
         return toString(0);
     }
 
-    // مساعدة لطباعة قائمة من Root nodes بشكل مرتب
+
     protected String listToString(List<? extends Root> nodes, int level) {
         if (nodes == null || nodes.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
@@ -24,7 +24,7 @@ public abstract class Root {
         return sb.toString();
     }
 
-    // مساعدة لطباعة حقل Root إذا موجود
+
     protected String nodeToString(Root node, int level) {
         if (node == null) return "";
         return node.toString(level) + "\n";
