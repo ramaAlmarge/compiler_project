@@ -4,9 +4,7 @@ public class Ident extends Tag_content {
     String id;
     String doubleQuote;
 
-    public String getId() {
-        return id;
-    }
+
 
     public void setId(String id) {
         this.id = id;

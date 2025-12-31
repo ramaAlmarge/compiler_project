@@ -3,7 +3,7 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tag extends Root {
+public class Tag extends Html_content {
     Tag_content tag_content;
     List<String> id = new ArrayList<>();
 

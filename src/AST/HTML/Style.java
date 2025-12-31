@@ -1,6 +1,6 @@
 package AST.HTML;
 
-public class Style extends Root {
+public class Style extends Html_content {
     Rule rule;
     AtRule atRule;
 

@@ -29,7 +29,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     }
 
     @Override
-    public Root visitTag(HTMLParser.TagContext ctx) {
+    public Html_content visitTag(HTMLParser.TagContext ctx) {
 
         Tag node = new Tag();
 
@@ -50,7 +50,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
 
 
     @Override
-    public Root visitTag_content(HTMLParser.Tag_contentContext ctx) {
+    public Tag visitTag_content(HTMLParser.Tag_contentContext ctx) {
         Tag_content node = new Tag_content();
         node.setId(ctx.ID().getText());
         for (HTMLParser.IdentContext iCtx : ctx.ident()) {
@@ -74,7 +74,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
 
 
     @Override
-    public Root visitStyle(HTMLParser.StyleContext ctx) {
+    public Html_content visitStyle(HTMLParser.StyleContext ctx) {
         Style node = new Style();
         if (ctx.rule_() != null) {
             Rule ruleNode = (Rule) visit(ctx.rule_());
@@ -310,7 +310,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     }
 
     @Override
-    public Root visitJinja2(HTMLParser.Jinja2Context ctx) {
+    public Html_content visitJinja2(HTMLParser.Jinja2Context ctx) {
         Jinja2 node = new Jinja2();
         node.setStatement((Statement)visitStatement(ctx.statement()));
         return node;
