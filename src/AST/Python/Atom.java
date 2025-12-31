@@ -1,4 +1,4 @@
 package AST.Python;
 
-public abstract class Atom extends Root{
+public abstract class Atom extends AtomExpr{
 }

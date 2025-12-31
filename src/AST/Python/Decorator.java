@@ -3,7 +3,7 @@ package AST.Python;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Decorator extends Root {
+public class Decorator extends Decorated {
      List<Name> names = new ArrayList<>();
      List<Test> args = new ArrayList<>();
 

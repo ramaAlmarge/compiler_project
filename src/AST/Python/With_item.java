@@ -1,6 +1,6 @@
 package AST.Python;
 
-public class With_item extends Root {
+public class With_item extends With_stmt {
     Test test;
      Expr expr;
 

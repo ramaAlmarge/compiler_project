@@ -3,7 +3,7 @@ package AST.Python;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exprlist extends Root{
+public class Exprlist extends For_stmt{
     List<Expr> exprs = new ArrayList<>();
 
     public List<Expr> getExprs() {

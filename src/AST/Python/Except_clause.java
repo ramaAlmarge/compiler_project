@@ -1,6 +1,6 @@
 package AST.Python;
 
-public class Except_clause extends Root{
+public class Except_clause extends Try_stmt{
     Suite suite;
 
     public Suite getSuite() {

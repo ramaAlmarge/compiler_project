@@ -3,7 +3,7 @@ package AST.Python;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trailer extends Root{
+public class Trailer extends AtomExpr{
     Name name;
     ArrayList<Test> test ;
 

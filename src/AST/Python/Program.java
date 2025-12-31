@@ -1,7 +1,5 @@
 package AST.Python;
 
-//import SympolTable.PythonSympolTable;
-
 import java.util.ArrayList;
 import java.util.List;
 

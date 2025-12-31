@@ -3,7 +3,7 @@ package AST.Python;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Testlist_comp extends Root{
+public class Testlist_comp extends Atom{
     List<Test> test =new ArrayList<>();
 
 

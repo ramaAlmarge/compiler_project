@@ -3,7 +3,7 @@ package AST.Python;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Comparison extends Root{
+public class Comparison extends Test{
     public enum CompOp {
         EQUALS,
         NOT_EQUALS,

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AtomExpr extends Expr {
-    Root atom;
+    Atom atom;
     List<Trailer> trailers = new ArrayList<>();
 
-    public void setAtom(Root atom) {
+    public void setAtom(Atom atom) {
         this.atom = atom;
     }
 

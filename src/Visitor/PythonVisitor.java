@@ -57,7 +57,7 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitDecorated(PythonParser.DecoratedContext ctx) {
+        public Stmt visitDecorated(PythonParser.DecoratedContext ctx) {
             Decorated node = new Decorated();
             for (PythonParser.DecoratorContext dctx : ctx.decorator()) {
                 node.addDecorator((Decorator) visit(dctx));
@@ -196,7 +196,7 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitDecorator(PythonParser.DecoratorContext ctx) {
+        public Decorated visitDecorator(PythonParser.DecoratorContext ctx) {
             Decorator node = new Decorator();
             for (PythonParser.NameContext nctx : ctx.name()) {
                 node.addName((Name) visit(nctx));
@@ -212,7 +212,7 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitWith_item(PythonParser.With_itemContext ctx) {
+        public With_stmt visitWith_item(PythonParser.With_itemContext ctx) {
             With_item node = new With_item();
             node.setTest((Test) visit(ctx.test()));
             if (ctx.expr() != null) {
@@ -222,14 +222,14 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitExcept_clause(PythonParser.Except_clauseContext ctx) {
+        public Try_stmt visitExcept_clause(PythonParser.Except_clauseContext ctx) {
             Except_clause node = new Except_clause();
             node.setSuite((Suite) visit(ctx.suite()));
             return node;
         }
 
         @Override
-        public Root visitExprlist(PythonParser.ExprlistContext ctx) {
+        public For_stmt visitExprlist(PythonParser.ExprlistContext ctx) {
             Exprlist node = new Exprlist();
             for (PythonParser.ExprContext ectx : ctx.expr()) {
                 node.addExpr((Expr) visit(ectx));
@@ -347,7 +347,7 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitComparison(PythonParser.ComparisonContext ctx) {
+        public Test visitComparison(PythonParser.ComparisonContext ctx) {
             Comparison node = new Comparison();
             node.addExpr((Expr) visit(ctx.expr(0)));
             for (int i = 1; i < ctx.expr().size(); i++) {
@@ -376,7 +376,7 @@ import SymbolTable.PythonSymbolTable;
         @Override
         public Expr visitAtomExpr(PythonParser.AtomExprContext ctx) {
             AtomExpr node = new AtomExpr();
-            node.setAtom((Root) visit(ctx.atom()));
+            node.setAtom((Atom) visit(ctx.atom()));
             for (PythonParser.TrailerContext tctx : ctx.trailer()) {
                 node.addTrailer((Trailer) visit(tctx));
             }
@@ -397,7 +397,7 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitParenAtom(PythonParser.ParenAtomContext ctx) {
+        public Atom visitParenAtom(PythonParser.ParenAtomContext ctx) {
             ParenAtom node = new ParenAtom();
             if (ctx.testlist_comp() != null){
                 node.setTestlist_comp((Testlist_comp) visit(ctx.testlist_comp()));
@@ -406,7 +406,7 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitListAtom(PythonParser.ListAtomContext ctx) {
+        public Atom visitListAtom(PythonParser.ListAtomContext ctx) {
             ListAtom node = new ListAtom();
             if (ctx.testlist_comp() != null) {
                 node.setTestlist_comp((Testlist_comp) visit(ctx.testlist_comp()));
@@ -415,19 +415,19 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Object visitNameAtom(PythonParser.NameAtomContext ctx) {
+        public Atom visitNameAtom(PythonParser.NameAtomContext ctx) {
             NameAtom node = new NameAtom();
             node.setName((Name) visit(ctx.name()));
             return node;
         }
 
         @Override
-        public Root visitPrintAtom(PythonParser.PrintAtomContext ctx) {
+        public Atom visitPrintAtom(PythonParser.PrintAtomContext ctx) {
             return new PrintAtom();
         }
 
         @Override
-        public Root visitNumberAtom(PythonParser.NumberAtomContext ctx) {
+        public Atom visitNumberAtom(PythonParser.NumberAtomContext ctx) {
             NumberAtom node = new NumberAtom();
             node.setNumber((Number) visit(ctx.number()));
             if (ctx.MINUS() != null) {
@@ -437,12 +437,12 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitNoneAtom(PythonParser.NoneAtomContext ctx) {
+        public Atom visitNoneAtom(PythonParser.NoneAtomContext ctx) {
             return new NoneAtom();
         }
 
         @Override
-        public Root visitStringAtom(PythonParser.StringAtomContext ctx) {
+        public Atom visitStringAtom(PythonParser.StringAtomContext ctx) {
             StringAtom node = new StringAtom();
             for (var str : ctx.STRING()) {
                 node.getString().add(str.getText());
@@ -451,7 +451,7 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitTestlist_comp(PythonParser.Testlist_compContext ctx) {
+        public Atom visitTestlist_comp(PythonParser.Testlist_compContext ctx) {
             Testlist_comp node = new Testlist_comp();
              node.getTest().add((Test) visit(ctx.test(0))
             );
@@ -496,7 +496,7 @@ import SymbolTable.PythonSymbolTable;
         }
 
         @Override
-        public Root visitTrailer(PythonParser.TrailerContext ctx) {
+        public AtomExpr visitTrailer(PythonParser.TrailerContext ctx) {
             Trailer trailer = new Trailer();
             if (ctx.DOT() != null) {
                 trailer.setName((Name) visit(ctx.name()));
