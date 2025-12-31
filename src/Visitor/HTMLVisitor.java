@@ -87,7 +87,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     }
 
     @Override
-    public Root visitRule(HTMLParser.RuleContext ctx) {
+    public Style visitRule(HTMLParser.RuleContext ctx) {
         htmlSymbolTable.enter("css-rule");
         Rule node = new Rule();
         if (ctx.selector() != null) {
@@ -106,7 +106,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     }
 
     @Override
-    public Root visitSelector(HTMLParser.SelectorContext ctx) {
+    public Rule visitSelector(HTMLParser.SelectorContext ctx) {
         Selector node = new Selector();
         SimpleSelector first = (SimpleSelector) visit(ctx.simpleSelector(0));
         node.addSimpleSelector(first);
@@ -125,26 +125,21 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     public Selector visitSimpleSelector(HTMLParser.SimpleSelectorContext ctx) {
         SimpleSelector node = new SimpleSelector();
         if (ctx.typeSelector() != null) {
-            node.setTypeSelector((Id) visit(ctx.typeSelector()));
-        }
-        for (TerminalNode hash : ctx.HASH()) {
-            node.addHash(new HashSelector(hash.getText()));
+            node.setTypeSelector((TypeSelector) visit(ctx.typeSelector()));
         }
         for (HTMLParser.ClassContext c : ctx.class_()) {
-            node.addClass((Id) visit(c));
+            node.addClass((Class_) visit(c));
         }
         for (HTMLParser.AttribContext a : ctx.attrib()) {
             node.addAttrib((Attrib) visit(a));
         }
-        for (HTMLParser.PseudoContext p : ctx.pseudo()) {
-            node.addPseudo((Pseudo) visit(p));
-        }
+
         return node;
     }
 
     @Override
-    public Root visitTypeSelector(HTMLParser.TypeSelectorContext ctx) {
-        Id node = new Id();
+    public SimpleSelector visitTypeSelector(HTMLParser.TypeSelectorContext ctx) {
+        TypeSelector node = new TypeSelector();
         if (ctx.ID() != null) {
             node.setId(ctx.ID().getText());
             return node;
@@ -153,8 +148,8 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     }
 
     @Override
-    public Root visitClass(HTMLParser.ClassContext ctx) {
-        Id node = new Id();
+    public SimpleSelector visitClass(HTMLParser.ClassContext ctx) {
+        Class_ node = new Class_();
         String className = ctx.ID().getText();
         htmlSymbolTable.define(className, "css-class", className, ctx.getStart().getLine());
         node.setId(className);
@@ -177,7 +172,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     }
     
     @Override
-    public Declaration visitDeclaration(HTMLParser.DeclarationContext ctx) {
+    public Style visitDeclaration(HTMLParser.DeclarationContext ctx) {
         Declaration node = new Declaration();
         Property prop = (Property) visit(ctx.property());
         Value val = (Value) visit(ctx.value());
@@ -265,8 +260,8 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     }
 
     @Override
-    public Root visitDoubleQuoteValue(HTMLParser.DoubleQuoteValueContext ctx) {
-        Id node = new Id();
+    public ValuePart visitDoubleQuoteValue(HTMLParser.DoubleQuoteValueContext ctx) {
+        DoubleQuoteValue node = new DoubleQuoteValue();
         if ( ctx.DOUBLE_QUOTE_STRING() != null){
             node.setId(ctx.DOUBLE_QUOTE_STRING().getText());
             return node;
@@ -276,7 +271,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
 
 
     @Override
-    public Root visitAtRule(HTMLParser.AtRuleContext ctx) {
+    public Style visitAtRule(HTMLParser.AtRuleContext ctx) {
         AtRule node = new AtRule();
         for (HTMLParser.ValuePartContext vpCtx : ctx.valuePart()) {
             node.setValuePart((ValuePart) visit(vpCtx));
@@ -317,21 +312,20 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     }
 
     @Override
-    public Root visitStatement(HTMLParser.StatementContext ctx) {
-        Statement node = new Statement();
+    public Jinja2 visitStatement(HTMLParser.StatementContext ctx) {
         if (ctx.stmt() != null) {
-            node.setStmt((Stmt) visit(ctx.stmt()));
-            return node;
+            return (Statement) visit(ctx.stmt());
+
         }
         if (ctx.expr() != null) {
-            node.setExpr((Expr) visit(ctx.expr()));
-            return node;
+            return (Statement) visit(ctx.expr());
+
         }
         return null;
     }
 
     @Override
-    public Root visitStmt(HTMLParser.StmtContext ctx) {
+    public Statement visitStmt(HTMLParser.StmtContext ctx) {
         Stmt node = new Stmt();
         java.util.List<String> ids = new java.util.ArrayList<>();
         for (TerminalNode idNode : ctx.ID()) {
@@ -371,7 +365,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
 
 
     @Override
-    public Root visitExpr(HTMLParser.ExprContext ctx) {
+    public Statement visitExpr(HTMLParser.ExprContext ctx) {
         Expr node = new Expr();
         for (HTMLParser.Expr_contentContext contentCtx : ctx.expr_content()) {
             Expr_content content = (Expr_content) visitExpr_content(contentCtx);
@@ -385,7 +379,7 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
     }
 
     @Override
-    public Root visitExpr_content(HTMLParser.Expr_contentContext ctx) {
+    public Expr visitExpr_content(HTMLParser.Expr_contentContext ctx) {
         Expr_content node = new Expr_content();
         if (ctx.ID() != null) {
             node.setId(ctx.ID().getText());
@@ -400,10 +394,5 @@ public class HTMLVisitor extends HTMLParserBaseVisitor<Object> {
             return node;
         }
         return null;
-    }
-
-    @Override
-    public Object visitUniversal(HTMLParser.UniversalContext ctx) {
-        return super.visitUniversal(ctx);
     }
 }

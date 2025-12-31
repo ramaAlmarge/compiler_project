@@ -31,7 +31,7 @@ ident
 ///////////style///////
 style
     :rule
-    | atRule
+    |atRule
     ;
 
 rule : selector ID? COMMA?ID?ID?COMMA?ID?ID? LBRACE declaration* RBRACE ;

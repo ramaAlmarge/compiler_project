@@ -3,7 +3,7 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtRule extends Root {
+public class AtRule extends Style {
     List<ValuePart> valuePart = new ArrayList<>();
     List<String> id = new ArrayList<>();
     List<Float> number = new ArrayList<>();

@@ -1,4 +1,4 @@
 package AST.HTML;
 
-public abstract class Property extends Root {
+public abstract class Property extends Declaration {
 }

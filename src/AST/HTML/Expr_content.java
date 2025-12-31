@@ -1,6 +1,6 @@
 package AST.HTML;
 
-public class Expr_content extends Root {
+public class Expr_content extends Expr {
     String id;
     float number;
     String double_qoute;

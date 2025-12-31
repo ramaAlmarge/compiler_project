@@ -1,4 +1,4 @@
 package AST.HTML;
 
-public abstract class Attrib extends Root {
+public abstract class Attrib extends SimpleSelector {
 }

@@ -4,7 +4,7 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Expr extends Root {
+public class Expr extends Statement {
 
     private List<Expr_content> expr_content = new ArrayList<>();
 

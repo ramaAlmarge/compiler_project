@@ -3,7 +3,7 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rule extends Root {
+public class Rule extends Style {
     Selector selector;
     List<String> ID = new ArrayList<>();
     List<Declaration> declaration = new ArrayList<>();

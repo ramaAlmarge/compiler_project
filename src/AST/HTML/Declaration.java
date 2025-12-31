@@ -1,6 +1,6 @@
 package AST.HTML;
 
-public class Declaration extends Root {
+public class Declaration extends Style {
 
      Property property;
      Value value;

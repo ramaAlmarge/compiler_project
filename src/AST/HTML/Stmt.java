@@ -2,7 +2,7 @@ package AST.HTML;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stmt extends Root {
+public class Stmt extends Statement {
 
     private List<String> ids = new ArrayList<>();
 
